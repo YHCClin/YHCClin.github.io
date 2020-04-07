@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+
+
+<script src="/js/fireworks.js"></script>
+<script src="/js/canvas-particle.js"></script>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<title>深度学习-卷积神经网络(0) - Liam&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.7.0/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.7.0/dist/APlayer.min.js"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7097707906527513",
+    enable_page_level_ads: true
+  });
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> <script> (adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "ca-pub-7097707906527513", enable_page_level_ads: true }); </script>
+<script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+</script>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+    <meta name="description" content="&amp;emsp;作为本系列的第一篇文章，本文仅对卷积神经网络的工作过程做一个简单的介绍，并不涉及数学原理与推导。若想要深入了解数学原理，那么可以去查看相关文献或者我将会在之后更新相关内容的文章。">
+<meta name="keywords" content="ML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度学习-卷积神经网络(0)">
+<meta property="og:url" content="https://www.ccyh.xyz/p/ebe8.html">
+<meta property="og:site_name" content="Liam&#39;s Blog">
+<meta property="og:description" content="&amp;emsp;作为本系列的第一篇文章，本文仅对卷积神经网络的工作过程做一个简单的介绍，并不涉及数学原理与推导。若想要深入了解数学原理，那么可以去查看相关文献或者我将会在之后更新相关内容的文章。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/google.gif">
+<meta property="og:image" content="http://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/20190619123229184.png">
+<meta property="og:image" content="https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/mnist_8.gif">
+<meta property="og:image" content="https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/lenet.jpg">
+<meta property="og:image" content="https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/lenet_cal.png">
+<meta property="og:image" content="http://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/20190619045802129.png">
+<meta property="og:image" content="http://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/20190619050403433.png">
+<meta property="og:image" content="https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/cnn_image_sample.gif">
+<meta property="og:image" content="http://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/20190619053433213.png">
+<meta property="og:image" content="http://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/20190619054522781.png">
+<meta property="og:image" content="http://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/20190619055337351.png">
+<meta property="og:image" content="https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/ReLU.png">
+<meta property="og:image" content="https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/relu_op.png">
+<meta property="og:image" content="http://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/20190619072042438.png">
+<meta property="og:image" content="http://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/20190619072936964.png">
+<meta property="og:image" content="http://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/20190619072355283.png">
+<meta property="og:image" content="http://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/20190619074946589.png">
+<meta property="og:image" content="http://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/20190619075722203.png">
+<meta property="og:image" content="http://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/20190619080251028.png">
+<meta property="og:image" content="http://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/20190619080952782.png">
+<meta property="og:image" content="http://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/20190619080746017.png">
+<meta property="og:updated_time" content="2020-03-23T04:59:32.943Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深度学习-卷积神经网络(0)">
+<meta name="twitter:description" content="&amp;emsp;作为本系列的第一篇文章，本文仅对卷积神经网络的工作过程做一个简单的介绍，并不涉及数学原理与推导。若想要深入了解数学原理，那么可以去查看相关文献或者我将会在之后更新相关内容的文章。">
+<meta name="twitter:image" content="https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/google.gif">
+
+
+
+<link rel="alternative" href="/atom.xml" title="深度学习-卷积神经网络(0)" type="application/atom+xml">
+
+
+
+<link rel="icon" href="/images/gen.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/solarized-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-133326618-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-133326618-2');
+</script>
+
+
+    
+    
+    
+    
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:1304349,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+
+
+<link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body class="is-2-column">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/codehub.ico" alt="深度学习-卷积神经网络(0)" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">🏡主页</a>
+                
+                <a class="navbar-item" href="/archives">📚归档</a>
+                
+                <a class="navbar-item" href="/categories">🎏分类</a>
+                
+                <a class="navbar-item" href="/tags">🔖标签</a>
+                
+                <a class="navbar-item" href="/messagebd">📭留言</a>
+                
+                <a class="navbar-item" href="/links">🔗友情链接</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="My GitHub" href="https://github.com/YHCClin?tab=repositories">
+                        
+                        <i class="fab fa-git-square"></i>
+                        
+                    </a>
+                    
+                    <a class="navbar-item" target="_blank" title="RSS" href="https://www.ccyh.xyz/atom.xml">
+                        
+                        <i class="fab fa-forumbee"></i>
+                        
+                    </a>
+                    
+                    <a class="navbar-item" target="_blank" title="LeetCode" href="https://leetcode-cn.com/u/ccyh/">
+                        
+                        <i class="fab fa-gitlab"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+        
+                <script type="text/javascript" src="js/theme-setting.js"></script>
+                <a class="navbar-item" id="night-nav" title="Night Mode" href="javascript:switchNight();" data-pjax-state="">
+                    <i class="fas fa-moon" id="night-icon"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    
+    <section class="section">
+        <div class="container">
+            <div id="mydiv" class="columns">
+                <div class="column is-8-tablet is-9-desktop is-9-widescreen has-order-2 column-main">
+                     
+<div class="card">
+    
+    <div class="card-image">
+        <span class="image is-7by1">
+            <img class="thumbnail" src="https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/ml.jpg" alt="深度学习-卷积神经网络(0)">
+        </span>
+    </div>
+    
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                
+                <time class="level-item has-text-grey" datetime="2019-06-19T02:12:58.000Z">2019-06-19</time>
+                <i class="fa fa-folder-open" style="margin-left:4px;"> </i>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/机器学习/">机器学习</a>
+                </div>
+                
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    
+                    25 分钟 读完 (大约 3812 个字)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                深度学习-卷积神经网络(0)
+            
+        </h1>
+        <div class="content">
+            <blockquote>
+<p>&emsp;作为本系列的第一篇文章，本文仅对卷积神经网络的工作过程做一个简单的介绍，并不涉及数学原理与推导。若想要深入了解数学原理，那么可以去查看相关文献或者我将会在之后更新相关内容的文章。</p>
+</blockquote>
+<a id="more"></a>
+<blockquote>
+<p>&emsp;阅读这篇文章前你最好对简单的神经网络有一定的了解，如果没有，可以参看博主的神经人工神经网络学习笔记系列文章。<br>如果你已经做好了准备，那就让我们开始吧！</p>
+</blockquote>
+<hr>
+<h2 id="什么是卷积神经网络？"><a href="#什么是卷积神经网络？" class="headerlink" title="什么是卷积神经网络？"></a>什么是卷积神经网络？</h2><hr>
+<p>&emsp;卷积神经网络（Convolutional Neural Network，CNN）是前馈人工神经网络的一种。在图像识别领域有着广泛的应用并且非常有效。当人们谈到计算机视觉时，通常都绕不开卷积神经网络。</p>
+<center><br><img src="https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/google.gif" alt="谷歌相册图像搜索"><br></center>
+
+
+<hr>
+<h2 id="计算机眼中的图像"><a href="#计算机眼中的图像" class="headerlink" title="计算机眼中的图像"></a>计算机眼中的图像</h2><hr>
+<p>&emsp;毫无疑问，你可以很快分辨下图中的动物是只猫。但在计算机“眼中”，它仅仅是一个数字序列。图像由一个个像素组成，每一个像素通常以RGB(Red,Green,Blue)三原色表示。但为了简化，我们使用灰度（0-255）表示，仅仅一个数字就可以表示（0：黑色 255：白色）。如此一来，对于一张$200\times 200$像素的图片，在计算机眼中就为一个$200\times 200$的矩阵，也即一个$40000$维的向量。</p>
+<center><br><img src="http://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/20190619123229184.png" alt="计算机眼中的图像"><br></center><br>&emsp;计算机学习（训练）识别图像的过程就是将许多图片向量输入某种算法处理后将结果与目标值相比对，对误差进行修正直到结果输出令人满意为止。待训练结束后再给它看一个从未看过的图像它也能准确地识别图像的内容。<br>&emsp;本系列文章我们将继续使用Mnist数据集来训练和测试神经网络。<br><center><br><img src="https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/mnist_8.gif" alt="Mnist数据集"><br></center>
+
+<hr>
+<h2 id="LeNet框架（20世纪90年代）"><a href="#LeNet框架（20世纪90年代）" class="headerlink" title="LeNet框架（20世纪90年代）"></a>LeNet框架（20世纪90年代）</h2><hr>
+<p>&emsp;LeNet框架是卷积神经网络的祖师爷LeCun在1998年提出的，用于解决手写数字识别的视觉任务。自那时起，CNN的最基本的架构就定下来了：卷积层、池化层、全连接层。本篇文章也将围绕该框架来进行卷积神经网络的介绍。</p>
+<center><br><img src="https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/lenet.jpg" alt="LeNet框架简图"><br></center>
+
+<hr>
+<h2 id="LeNet-卷积神经网络的工作过程"><a href="#LeNet-卷积神经网络的工作过程" class="headerlink" title="LeNet 卷积神经网络的工作过程"></a>LeNet 卷积神经网络的工作过程</h2><hr>
+<center><br><img src="https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/lenet_cal.png" alt="卷积神经网络的计算过程"><br></center>
+
+<hr>
+<h3 id="1、卷积运算："><a href="#1、卷积运算：" class="headerlink" title="1、卷积运算："></a>1、卷积运算：</h3><hr>
+<p>&emsp;顾名思义，卷积神经网络得名于“卷积”运算。在卷积神经网络中，卷积的主要目的是从目标图像中提取“特征”。通过使用输入数据中的小方块（矩阵分块）来学习图像特征，卷积运算保留了像素间的空间关系。<br>&emsp;正如前文所说，每个图像都可以被计算机看成是一个像素值矩阵。现仅考虑一个$5\times 5$像素的图像矩阵$W_{img}$：</p>
+<p><div align="center"><br><img src="http://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/20190619045802129.png" alt=""><br></div><br>再令一个$3\times 3$的矩阵$W_{f}$：</p>
+<center><br><img src="http://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/20190619050403433.png" alt=""><br></center><br>将$3\times 3$的矩阵在$5\times 5$矩阵上移动并将对应位的数值相乘并求和，得到一个新的矩阵即为卷积运算后的特征值矩阵：<br><center><br><img src="https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/cnn_image_sample.gif" alt="卷积运算"><br></center>
+
+<p>&emsp;这个由特征值组成的矩阵被称为 <strong>卷积特征</strong> 或 <strong>特征映射</strong> 。而上述参与卷积运算的$3\times 3$矩阵被称为 <strong>卷积滤波器</strong> 或 <strong>核</strong> 或 <strong>特征探测器</strong> （以下统称滤波器，但是事实上过滤器的作用就是原始图像的 <strong>特征检测器</strong>）。上述例子中过滤器在图像矩阵上每次移动1个像素单位，称为 <strong>步幅</strong> 。</p>
+<p>&emsp;不难发现，不同的滤波器作用于相同图像上会得到不同的特征映射，下图列出了一些滤波器的取值以及功能作用(边缘检测，锐化等)：</p>
+<center><br><img src="http://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/20190619053433213.png" alt=""><br></center>
+
+<p>&emsp;总的来说，一个滤波器在输入图像上移动（卷积操作）以生成特征映射。在同一张图像上，另一个滤波器的卷积生成了不同的特征图。需要注意到，卷积操作捕获原始图像中的局部依赖关系很重要。还要注意这两个不同的滤波器如何从同一张原始图像得到不同的特征图。请记住，以上图像和两个滤波器只是数值矩阵。<br>&emsp;实际上，卷积神经网络在训练过程中会自己学习这些滤波器的值（尽管在训练过程之前我们仍需要指定诸如滤波器数目、大小，网络框架等参数）。我们拥有的滤波器数目越多，提取的图像特征就越多，我们的网络在识别新图像时效果就会越好。</p>
+<p>特征映射（卷积特征）的大小由我们在执行卷积步骤之前需要决定的三个参数控制：</p>
+<ul>
+<li><strong>深度：</strong>深度对应于我们用于卷积运算的过滤器数量。在图6所示的网络中，我们使用三个不同的过滤器对初始的船图像进行卷积，从而生成三个不同的特征图。可以将这三个特征地图视为堆叠的二维矩阵，因此，特征映射的“深度”为3。</li>
+</ul>
+<center><br><img src="http://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/20190619054522781.png" alt="卷积操作"><br></center>
+
+<ul>
+<li><strong>步幅：</strong>步幅是我们在输入矩阵上移动一次过滤器矩阵的像素数量。当步幅为1时，我们一次将过滤器移动1个像素。当步幅为2时，过滤器每次移动2个像素。步幅越大，生成的特征映射越小。</li>
+<li><strong>零填充：</strong>有时，将输入矩阵边界用零来填充会很方便，这样我们可以将过滤器应用于输入图像矩阵的边界元素。零填充一个很好的特性是它允许我们控制特征映射的大小。添加零填充也称为宽卷积，而不使用零填充是为窄卷积。</li>
+</ul>
+<center><br><img src="http://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/20190619055337351.png" alt="边界零填充"><br></center>
+
+<hr>
+<h3 id="2、非线性操作（ReLU操作）"><a href="#2、非线性操作（ReLU操作）" class="headerlink" title="2、非线性操作（ReLU操作）"></a>2、非线性操作（ReLU操作）</h3><hr>
+<p>&emsp;每次卷积操作之后，都会进行一次ReLU操作，其全称为修正线性单元（Rectified Linear Unit),是一种非线性操作。以下为修正线性函数的图像及表达式：</p>
+<p>$$<br>f(x)=\begin{cases}<br>0, &amp; x&lt;0 \\<br>x, &amp; otherwise<br>\end{cases}<br>$$</p>
+<center><br><img src="https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/ReLU.png" alt="修正线性函数"><br></center>
+
+<p>&emsp;ReLU 是一个针对元素的操作（应用于每个像素），并将特征映射中的所有负像素值替换为零。ReLU 的目的是在卷积神经网络中引入非线性因素，因为在实际生活中我们想要用神经网络学习的数据大多数都是非线性的（卷积是一个线性运算 —— 按元素进行矩阵乘法和加法，所以我们希望通过引入 ReLU 这样的非线性函数来解决非线性问题）。<br>从可以很清楚地理解 ReLU 操作。它展示了将 ReLU 作用于某个特征映射得到的结果。这里的输出特征映射也被称为“修正”特征映射。</p>
+<center><br><img src="https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/relu_op.png" alt="修正线性函数"><br></center>
+
+<p>其他非线性函数如 <strong>Sigmoid</strong> 或 <strong>tanh</strong> 也能达到类似效果，但是 <strong>ReLU</strong> 函数的效果是最好的。</p>
+<hr>
+<h3 id="3、池化（Pooling）"><a href="#3、池化（Pooling）" class="headerlink" title="3、池化（Pooling）"></a>3、池化（Pooling）</h3><hr>
+<p>&emsp;空间池化（也称为子采样或下采样）可降低每个特征映射的维度，并保留最重要的信息。空间池化有几种不同的方式：<strong>最大值，平均值，求和等</strong>。</p>
+<p>&emsp;在最大池化的情况下，我们定义一个空间邻域（例如一个2 × 2窗口），并取修正特征映射在该窗口内最大的元素。当然我们也可以取该窗口内所有元素的平均值（<strong>平均池化</strong>）或所有元素的总和。在实际运用中，<strong>最大池化</strong> 的表现更好。<br>&ensp;下图展示了通过2 × 2窗口在修正特征映射（卷积+ ReLU 操作后得到）上应用最大池化操作的示例:</p>
+<center><br><img src="http://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/20190619072042438.png" alt="Pooling"><br></center>
+
+<p>&emsp;我们将2 x 2窗口移动2个单元格（也称为“步幅”），并取每个区域中的最大值。如图9所示，这样就降低了特征映射的维度,变成了一个$2\times 2$的矩阵。<br>&emsp;由于池化操作分别应用于每个特征映射（因此，我们从三个输入映射中得到了三个输出映射）。</p>
+<center><br><img src="http://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/20190619072936964.png" alt="在修正后的特征映射上应用池化"><br></center>
+
+<p>两种池化方法的结果对比：</p>
+<center><br><img src="http://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/20190619072355283.png" alt="Pool Diffrent"><br></center>
+
+<p>&emsp;池化的作用是逐步减少输入的空间大小。具体来说有以下四点：</p>
+<ul>
+<li>使输入（特征维度）更小，更易于管理</li>
+<li>减少网络中的参数和运算次数，因此可以控制过拟合</li>
+<li>使网络对输入图像微小的变换、失真和平移更加稳健（输入图片小幅度的失真不会改池化的输出结果 —— 因为我们取了邻域的最大值/平均值）</li>
+<li>可以得到尺度几乎不变的图像（确切的术语是“等变”）。这是非常有用的，这样无论图片中的物体位于何处，我们都可以检测到</li>
+</ul>
+<p>&emsp;目前为止，我们已经了解了卷积神经网络中 <strong>卷积</strong>、<strong>ReLU</strong>、<strong>池化</strong> 的工作原理。这一点非常重要，下面我们将举例来描述这一过程。</p>
+<hr>
+<h2 id="可视化卷积神经网络"><a href="#可视化卷积神经网络" class="headerlink" title="可视化卷积神经网络"></a>可视化卷积神经网络</h2><hr>
+<p>&emsp;Adam Harley 创建了一个基于 MNIST 手写数字数据集训练卷积神经网络的可视化。我强烈推荐大家 使用它来了解卷积神经网络的工作细节。其链接如下,可以自行尝试：</p>
+<ul>
+<li><a href="http://scs.ryerson.ca/~aharley/vis/conv/flat.html" target="_blank" rel="noopener">2D Visualization of a Convolutional Neural Network.</a></li>
+</ul>
+<hr>
+<center><br><img src="http://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/20190619074946589.png" alt=""><br></center>
+
+<hr>
+<h3 id="1、卷积层"><a href="#1、卷积层" class="headerlink" title="1、卷积层"></a>1、卷积层</h3><p>&emsp;将鼠标放在卷积层的某个像素点上并点击会出现：</p>
+<center><br><img src="http://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/20190619075722203.png" alt=""><br></center>
+
+<hr>
+<h3 id="2、池化层"><a href="#2、池化层" class="headerlink" title="2、池化层"></a>2、池化层</h3><center><br><img src="http://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/20190619080251028.png" alt=""><br></center>
+
+<hr>
+<h3 id="3、全连接层"><a href="#3、全连接层" class="headerlink" title="3、全连接层"></a>3、全连接层</h3><p>&emsp;全连接层的每一个结点都与其前一层的每一个结点相连接。</p>
+<center><br><img src="http://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/20190619080952782.png" alt=""><br><img src="http://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%85%A5%E9%97%A8%E7%BA%A7%E4%BB%8B%E7%BB%8D/20190619080746017.png" alt=""><br></center>
+
+<hr>
+<p>&emsp;该可视化项目还有3D版的，大家可以去玩玩，对于加深理解很有帮助。</p>
+<hr>
+<h2 id="卷积神经网络如何学习？"><a href="#卷积神经网络如何学习？" class="headerlink" title="卷积神经网络如何学习？"></a>卷积神经网络如何学习？</h2><hr>
+<p>Waiting for update …</p>
+<hr>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/ML/">ML</a>
+                </div>
+            </div>
+        </div>
+        
+        
+
+        
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5d123718ccac450012baa1b1&amp;product=social-ab" async="async"></script>
+
+        
+  <div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>本文作者：</strong>Liam
+      </li>
+      <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="" title="{{ page.title }}">深度学习-卷积神经网络(0)</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>发布时间：</strong>
+      <a href="" title="{{ page.title }}">2019年6月19日 - 10时06分</a>
+      </li>
+      <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+      </li>
+    </ul>
+  <div>
+    
+
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？点个赞留个言再走吧！</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>Alipay</span>
+    <div class="qrcode"><img src="/images/zi.jpg" alt="Alipay"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>WeChatPay</span>
+    <div class="qrcode"><img src="/images/we.jpg" alt="WeChatPay"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/p/4e19.html">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">机器学习原来这么有趣-Part3-深度学习与卷积神经网络</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/p/e173.html">
+                <span class="level-item">人工神经网络学习笔记（3）</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+    <div class="card card-transparent">
+        <div class="card-content">
+            <h2 align="center" style="padding:10px;">温馨提示，此处可能会出现广告</h2>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- article -->
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7097707906527513" data-ad-slot="2635009920" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#valine-thread',
+        notify: false,
+        verify: true,
+        app_id: 'oR2IQXqpGEFy4GHNDgdmfSMR-gzGzoHsz',
+        app_key: 'hwYfVGzICBlXGiokUXaNqJsx',
+        placeholder: '留下邮箱可以收到回复通知哦~'
+    });
+</script>
+
+    </div>
+</div>
+
+
+</div></div>
+
+                </div>
+                 
+                
+
+
+
+
+<div class="column is-4-tablet is-3-desktop is-3-widescreen  has-order-1 column-left is-sticky">
+    
+        
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#什么是卷积神经网络？">
+        <span class="has-mr-6">1</span>
+        <span>什么是卷积神经网络？</span>
+        </a></li><li>
+        <a class="is-flex" href="#计算机眼中的图像">
+        <span class="has-mr-6">2</span>
+        <span>计算机眼中的图像</span>
+        </a></li><li>
+        <a class="is-flex" href="#LeNet框架（20世纪90年代）">
+        <span class="has-mr-6">3</span>
+        <span>LeNet框架（20世纪90年代）</span>
+        </a></li><li>
+        <a class="is-flex" href="#LeNet-卷积神经网络的工作过程">
+        <span class="has-mr-6">4</span>
+        <span>LeNet 卷积神经网络的工作过程</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#1、卷积运算：">
+        <span class="has-mr-6">4.1</span>
+        <span>1、卷积运算：</span>
+        </a></li><li>
+        <a class="is-flex" href="#2、非线性操作（ReLU操作）">
+        <span class="has-mr-6">4.2</span>
+        <span>2、非线性操作（ReLU操作）</span>
+        </a></li><li>
+        <a class="is-flex" href="#3、池化（Pooling）">
+        <span class="has-mr-6">4.3</span>
+        <span>3、池化（Pooling）</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#可视化卷积神经网络">
+        <span class="has-mr-6">5</span>
+        <span>可视化卷积神经网络</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#1、卷积层">
+        <span class="has-mr-6">5.1</span>
+        <span>1、卷积层</span>
+        </a></li><li>
+        <a class="is-flex" href="#2、池化层">
+        <span class="has-mr-6">5.2</span>
+        <span>2、池化层</span>
+        </a></li><li>
+        <a class="is-flex" href="#3、全连接层">
+        <span class="has-mr-6">5.3</span>
+        <span>3、全连接层</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#卷积神经网络如何学习？">
+        <span class="has-mr-6">6</span>
+        <span>卷积神经网络如何学习？</span>
+        </a></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <img class="image is-128x128 has-mb-6" src="https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/photo.jpg" alt="Liam">
+                    
+                    <p class="is-size-4 is-block">
+                        Liam
+                    </p>
+                    
+                    
+                    <div id="binft" align="center" style="margin:5px;"></div>
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Fujian·China</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        46
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        11
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        21
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://blog.csdn.net/Marvine">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/YHCClin">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="https://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="https://twitter.com/echo_scottlin">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+    <div align="center" style="margin-left:auto;margin-right:auto;padding:10px">
+        <hr align="center" style="width:70%;">
+        <p align="center" id="hitokoto"></p>
+        <script type="text/javascript" defer>
+            function getYiyan(){
+            $.getJSON("https://v1.hitokoto.cn/", function (data) {
+            if(data){
+                $('#hitokoto').html("");
+                $('#hitokoto').append("<strong style='color: #77C08F;'>"+data.hitokoto+"</strong>"+
+                "<p>"+"来源《"+data.from+"》</p><p>提供者-"+data.creator+"</p>");
+            }});}
+            $(function (){getYiyan();$('#hitokoto').click(function(){getYiyan();})});
+        </script>
+    </div>
+    <div align="center" style="margin-bottom: 10px;">
+        
+        <script>
+                    var binft = function (r) {
+                      function t() {
+                        return b[Math.floor(Math.random() * b.length)]
+                      }  
+                      function e() {
+                        return String.fromCharCode(94 * Math.random() + 33)
+                      }
+                      function n(r) {
+                        for (var n = document.createDocumentFragment(), i = 0; r > i; i++) {
+                          var l = document.createElement("span");
+                          l.textContent = e(), l.style.color = t(), n.appendChild(l)
+                        }
+                        return n
+                      }
+                      function i() {
+                        var t = o[c.skillI];
+                        c.step ? c.step-- : (c.step = g, c.prefixP < l.length ? (c.prefixP >= 0 && (c.text += l[c.prefixP]), c.prefixP++) : "forward" === c.direction ? c.skillP < t.length ? (c.text += t[c.skillP], c.skillP++) : c.delay ? c.delay-- : (c.direction = "backward", c.delay = a) : c.skillP > 0 ? (c.text = c.text.slice(0, -1), c.skillP--) : (c.skillI = (c.skillI + 1) % o.length, c.direction = "forward")), r.textContent = c.text, r.appendChild(n(c.prefixP < l.length ? Math.min(s, s + c.prefixP) : Math.min(s, t.length - c.skillP))), setTimeout(i, d)
+                      }
+                      var l = "",
+                      o = ["Hello!", "你好呀，陌生人！", "今天你开心了吗？", "人非圣贤，孰能无过。", "不要轻易抱怨", "抱怨只能说明自己能力不足。", "自律是最好的老师。", "每天学一点，菜鸟变大神。","怠惰是贫穷的制造厂。","忍耐力较诸脑力，尤胜一筹。","环境不会改变，解决之道在于改变自己。"].map(function (r) {
+                      return r + ""
+                      }),
+                      a = 2,
+                      g = 1,
+                      s = 5,
+                      d = 75,
+                      b = ["rgb(110,64,170)", "rgb(150,61,179)", "rgb(191,60,175)", "rgb(228,65,157)", "rgb(254,75,131)", "rgb(255,94,99)", "rgb(255,120,71)", "rgb(251,150,51)", "rgb(226,183,47)", "rgb(198,214,60)", "rgb(175,240,91)", "rgb(127,246,88)", "rgb(82,246,103)", "rgb(48,239,130)", "rgb(29,223,163)", "rgb(26,199,194)", "rgb(35,171,216)", "rgb(54,140,225)", "rgb(76,110,219)", "rgb(96,84,200)"],
+                      c = {
+                        text: "",
+                        prefixP: -s,
+                        skillI: 0,
+                        skillP: 0,
+                        direction: "forward",
+                        delay: a,
+                        step: g
+                      };
+                      i()
+                      };
+                      binft(document.getElementById('binft'));
+        </script>
+    </div>
+
+</div>
+    
+    
+        <div class="column-right-shadow  is-sticky">
+        
+            <style type="text/css">
+    .fl{ float: left; }
+    .fr{ float: right; }
+    .wrapper{ width: 250px; height: 200px; margin-top: 80px;margin-bottom: auto;margin-left: auto;margin-right: auto;}
+    .wrapper p{ padding-top: 10px; line-height: 27px; color: #999; font-size: 10px; text-align: center;  }
+    .tagcloud { position: relative; margin-top:0; font-family: Lato, sans-serif;}
+    .tagcloud a{ 
+        position: absolute;
+        font-family: Lato, sans-serif;
+        top: 0; left: 0;  
+        display: block; 
+        padding: 11px 30px; 
+        color: #32A354; 
+        font-size: 18px;
+        font-weight: bold;   
+        background-color: transparent; 
+        text-decoration: none; 
+        white-space: nowrap;
+
+        -ms-filter:"progid:DXImageTransform.Microsoft.Shadow(Strength=4,Direction=135, Color='#000000')";/*兼容ie7/8*/
+        filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=125, Strength=9);
+      /*strength是阴影大小，direction是阴影方位，单位为度，可以为负数，color是阴影颜色 （尽量使用数字）使用IE滤镜实现盒子阴影的盒子必须是行元素或以行元素显示（block或inline-block;）*/
+    }
+    .tagcloud a:hover{ color: white; font-weight: 900; padding: 4px;background-color: rgba(50,163,84,0.6);box-shadow: 0 0 5px rgba(50,163,84,0);border-radius: 8px;}
+</style>
+<script type="text/javascript" src="/js/tagcloud.js"></script>
+
+    <div class="card widget">
+        <div class="card-content">
+            <h3 class="menu-label">
+                标签云
+            </h3>
+            <div class="wrapper">
+                <div class="tagcloud fl">
+                    <a href="/tags/AI/" style="font-size: 16px;">AI</a> <a href="/tags/Algorithm/" style="font-size: 18px;">Algorithm</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Borring/" style="font-size: 10px;">Borring</a> <a href="/tags/C/" style="font-size: 10px;">C</a> <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/Graph/" style="font-size: 10px;">Graph</a> <a href="/tags/Hexo/" style="font-size: 14px;">Hexo</a> <a href="/tags/Knapsack/" style="font-size: 10px;">Knapsack</a> <a href="/tags/LeetCode/" style="font-size: 14px;">LeetCode</a> <a href="/tags/List/" style="font-size: 12px;">List</a> <a href="/tags/ML/" style="font-size: 20px;">ML</a> <a href="/tags/Math/" style="font-size: 14px;">Math</a> <a href="/tags/QuickSort/" style="font-size: 10px;">QuickSort</a> <a href="/tags/String/" style="font-size: 10px;">String</a> <a href="/tags/Tools/" style="font-size: 10px;">Tools</a> <a href="/tags/Tree/" style="font-size: 16px;">Tree</a> <a href="/tags/algorithm/" style="font-size: 10px;">algorithm</a> <a href="/tags/discretemathematics/" style="font-size: 10px;">discretemathematics</a> <a href="/tags/并查集/" style="font-size: 10px;">并查集</a>
+                </div>
+            </div><!--wrapper-->
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+        /*3D标签云*/
+        tagcloud({
+            selector: ".tagcloud",  //元素选择器
+            fontsize: 10,       //基本字体大小, 单位px
+            radius: 50,         //滚动半径, 单位px
+            mspeed: "normal",   //滚动最大速度, 取值: slow, normal(默认), fast
+            ispeed: "normal",   //滚动初速度, 取值: slow, normal(默认), fast
+            direction: 135,     //初始滚动方向, 取值角度(顺时针360): 0对应top, 90对应left, 135对应right-bottom(默认)...
+            keep: false          //鼠标移出组件后是否继续随鼠标滚动, 取值: false, true(默认) 对应 减速至初速度滚动, 随鼠标滚动
+        });
+    </script>
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/C/">
+            <span class="level-start">
+                <span class="level-item">C++</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Math/">
+            <span class="level-start">
+                <span class="level-item">Math</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Mathematics/">
+            <span class="level-start">
+                <span class="level-item">Mathematics</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/人工智能/">
+            <span class="level-start">
+                <span class="level-item">人工智能</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/工具/">
+            <span class="level-start">
+                <span class="level-item">工具</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/底层原理/">
+            <span class="level-start">
+                <span class="level-item">底层原理</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/教程/">
+            <span class="level-start">
+                <span class="level-item">教程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/数据结构/">
+            <span class="level-start">
+                <span class="level-item">数据结构</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">9</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/机器学习/">
+            <span class="level-start">
+                <span class="level-item">机器学习</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">7</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/算法/">
+            <span class="level-start">
+                <span class="level-item">算法</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">12</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/闲疯帝/">
+            <span class="level-start">
+                <span class="level-item">闲疯帝</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/p/b411.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="不确定性推理">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-30T08:11:26.000Z">2020-03-30</time></div>
+                    <a href="/p/b411.html" class="has-link-black-ter is-size-6">不确定性推理</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/人工智能/">人工智能</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+
+        
+        <article class="media">
+            
+            <a href="/p/a36d.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="利用归结原理求解问题">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-08T03:18:11.000Z">2020-03-08</time></div>
+                    <a href="/p/a36d.html" class="has-link-black-ter is-size-6">利用归结原理求解问题</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/人工智能/">人工智能</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+
+        
+        <article class="media">
+            
+            <a href="/p/fba.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="归结反演">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-07T12:11:26.000Z">2020-03-07</time></div>
+                    <a href="/p/fba.html" class="has-link-black-ter is-size-6">归结反演</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/人工智能/">人工智能</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+
+        
+        <article class="media">
+            
+            <a href="/p/3027.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="谓词逻辑归结原理">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-07T03:37:40.000Z">2020-03-07</time></div>
+                    <a href="/p/3027.html" class="has-link-black-ter is-size-6">谓词逻辑归结原理</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/人工智能/">人工智能</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+
+        
+        <article class="media">
+            
+            <a href="/p/ccf3.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="谓词演算的推理理论">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-06T12:23:03.000Z">2020-03-06</time></div>
+                    <a href="/p/ccf3.html" class="has-link-black-ter is-size-6">谓词演算的推理理论</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Math/">Math</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">8</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">7</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">11</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/AI/">
+                        <span class="tag">AI</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Algorithm/">
+                        <span class="tag">Algorithm</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Array/">
+                        <span class="tag">Array</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Blog/">
+                        <span class="tag">Blog</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Borring/">
+                        <span class="tag">Borring</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/C/">
+                        <span class="tag">C</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/C/">
+                        <span class="tag">C++</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Graph/">
+                        <span class="tag">Graph</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Hexo/">
+                        <span class="tag">Hexo</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Knapsack/">
+                        <span class="tag">Knapsack</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/LeetCode/">
+                        <span class="tag">LeetCode</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/List/">
+                        <span class="tag">List</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/ML/">
+                        <span class="tag">ML</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Math/">
+                        <span class="tag">Math</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/QuickSort/">
+                        <span class="tag">QuickSort</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/String/">
+                        <span class="tag">String</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Tools/">
+                        <span class="tag">Tools</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Tree/">
+                        <span class="tag">Tree</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/algorithm/">
+                        <span class="tag">algorithm</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/discretemathematics/">
+                        <span class="tag">discretemathematics</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/并查集/">
+                        <span class="tag">并查集</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+            
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                站点公告
+            </h3>
+            <ul class="menu-list">
+            
+            </ul>
+            <li>暂无公告</li>
+        </div>
+    </div>
+</div>
+
+
+        
+        </div>
+    
+</div>
+
+
+
+                 
+                 
+            </div>
+        </div>
+    </section>
+    
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/codehub.ico" alt="深度学习-卷积神经网络(0)" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                ©️ 2019 👉 2020 Liam&nbsp;
+                💖 Powered 
+                </p>
+                <p class="post-count">📜 站点字数统计 <font color="#6DE8DD"> 64.2k </font> 字</p>
+                <p id="busuanzi_container_site_pv" class="theme-info">📑 总访问-<span id="busuanzi_value_site_pv" style="color:#6DE8DD;"></span>-次 |</p>
+                <p id="busuanzi_container_site_uv" class="theme-info">👤 总访客-<span id="busuanzi_value_site_uv" style="color:#6DE8DD;"></span>-位</p>
+                <p>🌏 <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span></p>
+            </div>
+            
+            <script>
+                (function(){
+                    var bp = document.createElement('script');
+                    var curProtocol = window.location.protocol.split(':')[0];
+                    if (curProtocol === 'https') {
+                        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+                    }
+                    else {
+                        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                    }
+                    var s = document.getElementsByTagName("script")[0];
+                    s.parentNode.insertBefore(bp, s);
+                })();
+            </script>
+
+            
+            <div class="level-end">
+                <script type="text/javascript" src="//rf.revolvermaps.com/0/0/0.js?i=0xetp0d4rdh&amp;d=2&amp;p=1&amp;b=3&amp;w=293&amp;g=2&amp;f=comic_sans_ms&amp;fs=12&amp;r=0&amp;c0=54ff00&amp;c1=00fff6&amp;c2=9d8b63&amp;ic0=0&amp;ic1=0" async="async"></script>
+            </div>
+            <script>
+                var now = new Date(); 
+                function createtime() { 
+                    var grt= new Date("8/1/2019 12:49:00");//此处修改你的建站时间或者网站上线时间 
+                    now.setTime(now.getTime()+250); 
+                    days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+                    hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+                    if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+                    mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+                    seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+                    snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+                    document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+                    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+                } 
+                setInterval("createtime()",250);
+            </script>
+
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        </div>
+
+    </div>
+
+    <script>
+        (function(){
+            var bp = document.createElement('script');
+            bp.src = '//push.zhanzhang.baidu.com/push.js';
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/meting@1.1.0/dist/Meting.min.js"></script>
+<script src="/js/theme-setting.js" defer></script>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {matchFontHeight: true},
+        SVG: {matchFontHeight: true},
+        CommonHTML: {matchFontHeight: true}
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+
+
+<script src="/js/main.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/animejs@3.0.1/lib/anime.min.js"></script>
+<script src="/js/src/firework.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+    <!-- 雪花特效 -->
+
+    <!-- tidio -->
+    
+    <script src="//code.tidio.co/ui3pfxbwv0bfvkvxwibyaejafrndrrqm.js"></script>
+<script type="text/javascript">
+        window.onload = function() {
+            //配置
+            var config = {
+                vx: 3,  //小球x轴速度,正为右，负为左
+                vy: 3,  //小球y轴速度
+                height: 2,  //小球高宽，其实为正方形，所以不宜太大
+                width: 2,
+                count: 99,     //点个数
+                color: "50,163,84",     //点颜色
+                stroke: "50,163,84",      //线条颜色
+                dist: 6000,     //点吸附距离
+                e_dist: 2000,  //鼠标吸附加速距离
+                max_conn: 10    //点到点最大连接数
+            }
+
+            //调用
+            CanvasParticle(config);
+        }
+    </script>
+    <div style="position: fixed;top:83%;left:20px;font-size: 20px;">
+        <p><a href="https://www.ccyh.xyz/about/" title="关于"> 😏</a></p>
+        <p><a href="https://www.ccyh.xyz/gallery/" title="相册"> 📷</a></p>
+        <p><a href="https://www.ccyh.xyz/messagebd/" title="留言"> ✍️</a></p>
+    </div>
+    <!-- start webpushr code --> <script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BJr9sIqj2_kebTgw2nJBff6ursDXbird-fIhorgVp1QNRDFjjQMboRaIAw4aqkR78QGW92DxTl21P0y8tVO0ej0');</script><!-- end webpushr code -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

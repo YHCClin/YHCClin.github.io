@@ -1,0 +1,705 @@
+
+<!DOCTYPE html>
+
+<script src="/js/cursor.js"></script>
+<script src="/js/fireworks.js"></script>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<title>相册</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<link rel="stylesheet" type="text/css" href="css/player.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.7.0/dist/APlayer.min.css">
+
+<script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.7.0/dist/APlayer.min.js"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7097707906527513",
+    enable_page_level_ads: true
+  });
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> <script> (adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "ca-pub-7097707906527513", enable_page_level_ads: true }); </script>
+<script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+    <meta name="description" content="Code·Hub          (adsbygoogle = window.adsbygoogle || []).push({     google_ad_client: &quot;ca-pub-7097707906527513&quot;,     enable_page_level_ads: true   });    (adsbygoogle = window.adsbygoog">
+<meta name="keywords" content="codehub">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Code·Hub">
+<meta property="og:url" content="https://www.ccyh.xyz/messagebd/index.html">
+<meta property="og:site_name" content="Code·Hub">
+<meta property="og:description" content="Code·Hub          (adsbygoogle = window.adsbygoogle || []).push({     google_ad_client: &quot;ca-pub-7097707906527513&quot;,     enable_page_level_ads: true   });    (adsbygoogle = window.adsbygoog">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.ccyh.xyz/images/codehub.ico">
+<meta property="og:image" content="https://www.ccyh.xyz/images/wechatpay.png">
+<meta property="og:image" content="https://www.ccyh.xyz/images/wechatpay.png">
+<meta property="og:image" content="https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/IMG_4057.JPG">
+<meta property="og:image" content="https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/LifeGame/Conways_game_of_life_breeder_animation.gif">
+<meta property="og:image" content="https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/RedBlackTree/20200130110010645.png">
+<meta property="og:image" content="https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/SegmentTree/20200129085313108.png">
+<meta property="og:image" content="https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/DisjointSet_%E5%B9%B6%E6%9F%A5%E9%9B%86/20200129092223020.png">
+<meta property="og:image" content="https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E5%AD%97%E5%85%B8%E6%A0%91/20200129091205953.png">
+<meta property="og:image" content="https://www.ccyh.xyz/images/codehub.ico">
+<meta property="og:updated_time" content="2020-02-07T05:29:07.645Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Code·Hub">
+<meta name="twitter:description" content="Code·Hub          (adsbygoogle = window.adsbygoogle || []).push({     google_ad_client: &quot;ca-pub-7097707906527513&quot;,     enable_page_level_ads: true   });    (adsbygoogle = window.adsbygoog">
+<meta name="twitter:image" content="https://www.ccyh.xyz/images/codehub.ico">
+
+
+
+<link rel="alternative" href="/atom.xml" title="" type="application/atom+xml">
+
+
+
+<link rel="icon" href="/images/gen.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/railscasts.css">
+
+<link rel="stylesheet" href="css/jsmodern.min.css">
+<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script src="jq/jsmodern.min.js"></script>
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Set render engine for 360 browser -->
+<meta name="renderer" content="webkit">
+<!-- No Baidu Siteapp-->
+<meta http-equiv="Cache-Control" content="no-siteapp"/>
+<!-- Add to homescreen for Chrome on Android -->    
+<meta name="mobile-web-app-capable" content="yes">
+<!-- Add to homescreen for Safari on iOS -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+<link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+<!-- Tile icon for Win8 (144x144 + tile color) -->
+<meta name="msapplication-TileImage" content="assets/i/app-icon72x72@2x.png">
+<meta name="msapplication-TileColor" content="#0e90d2">
+<link rel="stylesheet" type="text/css" href="css/style1.css" />
+<script src="js/modernizr-custom.js"></script>
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-133326618-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-133326618-2');
+</script>
+
+
+<!-- video -->
+<script>
+        $(function () {
+            //视频
+            jsModern.video("#video");
+            //播放视频
+            $(".VideoBtn").click(function () {
+                var video = document.getElementById("videoShow");
+                video.play();
+                $('.VideoBtn').hide();
+            })
+            //监听视频的播放状态
+            var video = document.getElementById("videoShow");
+            video.oncanplay = function () {
+                $(".VideoBtn").show();
+                //$("#video").attr("poster","");
+            }
+            //视频播放事件
+            video.onplay = function () {
+                $("#videoShow").attr("poster", "");
+                $(".VideoBtn").hide();
+            };
+            video.onplaying = function () {
+                $(".VideoBtn").hide();
+            };
+
+            //视频暂停事件
+            video.onpause = function () {
+                $(".VideoBtn").show();
+            };
+            //点击视频周围暂停播放图片出现
+            video.onclick = function () {
+                if (video.paused) {
+                    $(".VideoBtn").hide();
+                    video.play();
+                } else {
+                    $(".VideoBtn").show();
+                    video.pause();
+                }
+            };
+        })
+    </script>
+    
+    
+    
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:1304349,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+
+
+<link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body class="demo-1">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/codehub.ico" alt="" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">🏡主页</a>
+                
+                <a class="navbar-item" href="/archives">📚归档</a>
+                
+                <a class="navbar-item" href="/categories">🎏分类</a>
+                
+                <a class="navbar-item" href="/tags">🔖标签</a>
+                
+                <a class="navbar-item" href="/messagebd">📭留言</a>
+                
+                <a class="navbar-item" href="/links">🔗友情の链接</a>
+                
+                <a class="navbar-item" href="/gallery">📷相册</a>
+
+                <a class="navbar-item" href="/about">👤关于</a>
+
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="My GitHub" href="https://github.com/YHCClin?tab=repositories">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                    <a class="navbar-item" target="_blank" title="RSS" href="https://www.ccyh.xyz/atom.xml">
+                        
+                        <i class="fab fa-forumbee"></i>
+                        
+                    </a>
+                    
+                    <a class="navbar-item" target="_blank" title="LeetCode" href="https://leetcode-cn.com/u/ccyh/">
+                        
+                        <i class="fab fa-gitlab"></i>
+                        
+                    </a>
+                
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="content">
+        <div class="grid">
+            <div class="grid__item" data-size="1280x853"> <a href="images/weix/1.png" class="img-wrap"><img src="images/weix/1.png" alt="img1" />
+                <div class="description description--grid">Assemblage</div>
+                </a> </div>
+            <div class="grid__item" data-size="958x1280"> <a href="images/weix/2.png" class="img-wrap"><img src="images/weix/2.png" alt="img2" />
+                <div class="description description--grid">Demesne</div>
+                </a> </div>
+            <div class="grid__item" data-size="1280x853"> <a href="images/weix/3.png" class="img-wrap"><img src="images/weix/3.png" alt="img3" />
+                <div class="description description--grid">Vestigial</div>
+                </a> </div>
+            <div class="grid__item" data-size="865x1280"> <a href="images/weix/4.png" class="img-wrap"><img src="images/weix/4.png" alt="img4" />
+                <div class="description description--grid">Zephyr</div>
+                </a> </div>
+            <div class="grid__item" data-size="1280x1280"> <a href="images/weix/5.png" class="img-wrap"><img src="images/weix/5.png" alt="img5" />
+                <div class="description description--grid">Desideratum</div>
+                </a> </div>
+            <div class="grid__item" data-size="1280x850"> <a href="images/weix/6.png" class="img-wrap"><img src="images/weix/6.png" alt="img6" />
+                <div class="description description--grid">Quixotic</div>
+                </a> </div>
+            <div class="grid__item" data-size="1280x850"> <a href="images/weix/7.png" class="img-wrap"><img src="images/weix/7.png" alt="img7" />
+                <div class="description description--grid">Quixotic</div>
+                </a> </div>
+            <div class="grid__item" data-size="1280x850"> <a href="images/weix/8.png" class="img-wrap"><img src="images/weix/8.png" alt="img8" />
+                <div class="description description--grid">Quixotic</div>
+                </a> </div>
+            <div class="grid__item" data-size="1280x850"> <a href="images/weix/9.png" class="img-wrap"><img src="images/weix/9.png" alt="img9" />
+                <div class="description description--grid">Quixotic</div>
+                </a> </div>
+            <div class="grid__item" data-size="1280x850"> <a href="images/weix/1.png" class="img-wrap"><img src="images/weix/1.png" alt="img10" />
+                <div class="description description--grid">Quixotic</div>
+                </a> </div>
+            <div class="grid__item" data-size="1280x850"> <a href="images/weix/2.png" class="img-wrap"><img src="images/weix/2.png" alt="img11" />
+                <div class="description description--grid">Quixotic</div>
+                </a> </div>
+            <div class="grid__item" data-size="1280x850"> <a href="images/weix/3.png" class="img-wrap"><img src="images/weix/3.png" alt="img12" />
+                <div class="description description--grid">Quixotic</div>
+                </a> </div>
+            <div class="grid__item" data-size="1280x850"> <a href="images/weix/4.png" class="img-wrap"><img src="images/weix/4.png" alt="img13" />
+                <div class="description description--grid">Quixotic</div>
+                </a> </div>
+            <div class="grid__item" data-size="1280x850"> <a href="images/weix/5.png" class="img-wrap"><img src="images/weix/5.png" alt="img14" />
+                <div class="description description--grid">Quixotic</div>
+                </a> </div>
+            <div class="grid__item" data-size="1280x850"> <a href="images/weix/6.png" class="img-wrap"><img src="images/weix/6.png" alt="img15" />
+                <div class="description description--grid">Quixotic</div>
+                </a> </div>
+            <div class="grid__item" data-size="1280x850"> <a href="images/weix/7.png" class="img-wrap"><img src="images/weix/7.png" alt="img16" />
+                <div class="description description--grid">Quixotic</div>
+                </a> </div>
+            <div class="grid__item" data-size="1280x850"> <a href="images/weix/8.png" class="img-wrap"><img src="images/weix/8.png" alt="img17" />
+                <div class="description description--grid">Quixotic</div>
+                </a> </div>
+            <div class="grid__item" data-size="1280x850"> <a href="images/weix/9.png" class="img-wrap"><img src="images/weix/9.png" alt="img18" />
+                <div class="description description--grid">Quixotic</div>
+                </a> </div>
+        </div>
+        <!-- /grid -->
+        <div class="preview">
+            <button class="action action--close"><i class="fa fa-times">x</i><span class="text-hidden">Close</span></button>
+            <div class="description description--preview"></div>
+        </div>
+        <!-- /preview -->
+    </div>
+</div>
+    <script src="js/imagesloaded.pkgd.min.js"></script>
+    <script src="js/masonry.pkgd.min.js"></script>
+    <script src="js/classie.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        (function() {
+            // create SVG circle overlay and append it to the preview element
+            function createCircleOverlay(previewEl) {
+                var dummy = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                dummy.setAttributeNS(null, 'version', '1.1');
+                dummy.setAttributeNS(null, 'width', '100%');
+                dummy.setAttributeNS(null, 'height', '100%');
+                dummy.setAttributeNS(null, 'class', 'overlay');
+                var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+                var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                circle.setAttributeNS(null, 'cx', 0);
+                circle.setAttributeNS(null, 'cy', 0);
+                circle.setAttributeNS(null, 'r', Math.sqrt(Math.pow(previewEl.offsetWidth,2) + Math.pow(previewEl.offsetHeight,2)));
+                dummy.appendChild(g);
+                g.appendChild(circle);
+                previewEl.appendChild(dummy);
+            }
+            
+            new GridFx(document.querySelector('.grid'), {
+                onInit : function(instance) {
+                    createCircleOverlay(instance.previewEl);
+                },
+                onResize : function(instance) {
+                    instance.previewEl.querySelector('svg circle').setAttributeNS(null, 'r', Math.sqrt(Math.pow(instance.previewEl.offsetWidth,2) + Math.pow(instance.previewEl.offsetHeight,2)));
+                },
+                onOpenItem : function(instance, item) {
+                    // item's image
+                    var gridImg = item.querySelector('img'),
+                        gridImgOffset = gridImg.getBoundingClientRect(),
+                        win = {width: document.documentElement.clientWidth, height: window.innerHeight},
+                        SVGCircleGroupEl = instance.previewEl.querySelector('svg > g'),
+                        SVGCircleEl = SVGCircleGroupEl.querySelector('circle');
+                        
+                    SVGCircleEl.setAttributeNS(null, 'r', Math.sqrt(Math.pow(instance.previewEl.offsetWidth,2) + Math.pow(instance.previewEl.offsetHeight,2)));
+                    // set the transform for the SVG g node. This will animate the circle overlay. The origin of the circle depends on the position of the clicked item.
+                    if( gridImgOffset.left + gridImg.offsetWidth/2 < win.width/2 ) {
+                        SVGCircleGroupEl.setAttributeNS(null, 'transform', 'translate(' + win.width + ', ' + (gridImgOffset.top + gridImg.offsetHeight/2 < win.height/2 ? win.height : 0) + ')');
+                    }
+                    else {
+                        SVGCircleGroupEl.setAttributeNS(null, 'transform', 'translate(0, ' + (gridImgOffset.top + gridImg.offsetHeight/2 < win.height/2 ? win.height : 0) + ')');
+                    }
+                }
+            });
+        })();
+    </script>
+</div>
+</div>
+<div id="QPlayer">
+<div id="pContent">
+    <div id="player">
+        <span class="cover"></span>
+        <div class="ctrl">
+            <div class="musicTag marquee">
+                <strong>Title</strong>
+                 <span> - </span>
+                <span class="artist">Artist</span>
+            </div>
+            <div class="progress">
+                <div class="timer left">0:00</div>
+                <div class="contr">
+                    <div class="rewind icon"></div>
+                    <div class="playback icon"></div>
+                    <div class="fastforward icon"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ssBtn">
+            <div class="adf"></div>
+    </div>
+</div>
+<ol id="playlist"></ol>
+</div>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.marquee.min.js"></script>
+
+<script>
+    var playlist = [
+{title:"世界那么大还是遇见你",artist:"程",mp3:"./sjnmdhsyjn.mp3",cover:"http://p3.music.126.net/1odRfg3HXWmYw02EMXKRKQ==/116548232557498.jpg?param=106x106",},
+];
+  var isRotate = true;
+  var autoplay = false;
+</script>
+<script src="js/player.js"></script>
+<script>
+
+function bgChange(){
+    var lis= $('.lib');
+    for(var i=0; i<lis.length; i+=2)
+    lis[i].style.background = 'rgba(246, 246, 246, 0.5)';
+}
+window.onload = bgChange;
+</script>
+
+</body>
+<!-- link -->
+</div>
+</section>
+
+    
+
+<footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/codehub.ico" alt="💻Liam - Dream Chaser" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                ©️ 2019 👉 2020 Liam&nbsp;
+                💖 Powered 
+                </p>
+                <p class="post-count">📜 站点字数统计 <font color="#6DE8DD"> 64.2k </font> 字</p>
+                <p id="busuanzi_container_site_pv" class="theme-info">📑 总访问-<span id="busuanzi_value_site_pv" style="color:#6DE8DD;"></span>-次 |</p>
+                <p id="busuanzi_container_site_uv" class="theme-info">👤 总访客-<span id="busuanzi_value_site_uv" style="color:#6DE8DD;"></span>-位</p>
+                <p>🌏 <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span></p>
+            </div>
+            
+            <script>
+                (function(){
+                    var bp = document.createElement('script');
+                    var curProtocol = window.location.protocol.split(':')[0];
+                    if (curProtocol === 'https') {
+                        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+                    }
+                    else {
+                        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                    }
+                    var s = document.getElementsByTagName("script")[0];
+                    s.parentNode.insertBefore(bp, s);
+                })();
+            </script>
+
+            
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        <div align="center">
+            <script>
+                var now = new Date(); 
+                function createtime() { 
+                    var grt= new Date("8/1/2019 12:49:00");//此处修改你的建站时间或者网站上线时间 
+                    now.setTime(now.getTime()+250); 
+                    days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+                    hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+                    if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+                    mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+                    seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+                    snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+                    document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+                    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+                } 
+                setInterval("createtime()",250);
+            </script>
+        </div>
+
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+        <span>
+        <script type="text/javascript" src="//rf.revolvermaps.com/0/0/4.js?i=0xetp0d4rdh&amp;m=7&amp;h=60&amp;c=ff8a00&amp;r=40" async="async"></script>
+        </span>
+        </div>
+
+    </div>
+
+    <script>
+        (function(){
+            var bp = document.createElement('script');
+            bp.src = '//push.zhanzhang.baidu.com/push.js';
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/meting@1.1.0/dist/Meting.min.js"></script>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {matchFontHeight: true},
+        SVG: {matchFontHeight: true},
+        CommonHTML: {matchFontHeight: true}
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+
+
+<script src="/js/main.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/animejs@3.0.1/lib/anime.min.js"></script>
+<script src="/js/src/firework.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+    <!-- 雪花特效 -->
+
+    <!-- tidio -->
+    
+    <script src="//code.tidio.co/ui3pfxbwv0bfvkvxwibyaejafrndrrqm.js"></script>
+    <amp-auto-ads type="adsense" data-ad-client="ca-pub-7097707906527513">
+</amp-auto-ads>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"admin":{"username":"aokilin","password_hash":"$2a$10$Ftok/UgFv5olradmR40PM.w57gZ.QOp2uXQlpSZevsU.pMi0KPHla","secret":"my super secret phrase"},"kramed":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true},"feed":{"type":"atom","path":"atom.xml","limit":20}});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+</html>

@@ -1,0 +1,112 @@
+.parent{
+    margin: 10px;
+    padding: 10px;
+    width: 65%;
+    height: auto;
+    border-radius:2px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    background-color: rgba(255,255,255,0.9);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+}
+.child{
+    margin-top: 20px;
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 100%;
+    background-color: transparent;
+}
+
+hr.style-one {
+    border: 0;
+    height: 1px;
+    background: #333;
+    margin-left:auto;
+    margin-right:auto;
+    background-image: linear-gradient(to right, #ccc, #333, #ccc);
+}
+
+.child p{
+    line-height: 30px;
+    font-size: 14px;
+    font-family: "楷体";
+    font-weight: bold;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.font1{
+    font-size:20px;
+    font-family: Lato, sans-serif;
+    background-image: -webkit-linear-gradient(bottom, rgb(201, 115, 255), rgb(20, 11, 255));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+body {
+  background-image: url('https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/sun.jpg');
+  background-attachment: fixed;
+  overflow: hidden;
+}
+
+@keyframes rotate {
+  0% {
+    transform: perspective(400px) rotateZ(20deg) rotateX(-40deg) rotateY(0);
+  }
+  100% {
+    transform: perspective(400px) rotateZ(20deg) rotateX(-40deg) rotateY(-360deg);
+  }
+}
+.stars {
+  transform: perspective(500px);
+  transform-style: preserve-3d;
+  position: absolute;
+  bottom: 0;
+  perspective-origin: 50% 100%;
+  left: 50%;
+  animation: rotate 90s infinite linear;
+}
+
+.star {
+  width: 2px;
+  height: 2px;
+  background: #F7F7B6;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0 -300px;
+  transform: translate3d(0, 0, -300px);
+  backface-visibility: hidden;
+}
+.table{
+    width: 400px;
+    height: 350px;
+    margin: 80px auto;
+}
+.table form{
+    width: 100%;
+}
+.table .name{
+    width: 280px;
+    margin: 20px auto 30px auto;
+    display: block;
+    height: 30px;
+    border-radius: 20px;
+    border: none;
+    background: rgba(0,0,0,0.2);
+    text-indent: 0.5em;
+}
+.table .btn{
+    width: 100px;
+    height: 30px;
+    background: rgba(0,0,0,0.1);
+    border-radius: 8px;
+    border: none;
+    color: white;
+    margin: 0 auto;
+    display: block;
+}

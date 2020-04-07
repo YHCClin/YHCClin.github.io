@@ -1,0 +1,545 @@
+﻿
+<!DOCTYPE html>
+
+<script src="/js/cursor.js"></script>
+<script src="/js/fireworks.js"></script>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<title>留下脚印</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.7.0/dist/APlayer.min.css">
+<link rel="stylesheet" type="text/css" href="nomal.css">
+
+<script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.7.0/dist/APlayer.min.js"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7097707906527513",
+    enable_page_level_ads: true
+  });
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> <script> (adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "ca-pub-7097707906527513", enable_page_level_ads: true }); </script>
+<script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+    <meta name="description" content="Code·Hub          (adsbygoogle = window.adsbygoogle || []).push({     google_ad_client: &quot;ca-pub-7097707906527513&quot;,     enable_page_level_ads: true   });    (adsbygoogle = window.adsbygoog">
+<meta name="keywords" content="codehub">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Code·Hub">
+<meta property="og:url" content="https://www.ccyh.xyz/messagebd/index.html">
+<meta property="og:site_name" content="Code·Hub">
+<meta property="og:description" content="Code·Hub          (adsbygoogle = window.adsbygoogle || []).push({     google_ad_client: &quot;ca-pub-7097707906527513&quot;,     enable_page_level_ads: true   });    (adsbygoogle = window.adsbygoog">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.ccyh.xyz/images/codehub.ico">
+<meta property="og:image" content="https://www.ccyh.xyz/images/wechatpay.png">
+<meta property="og:image" content="https://www.ccyh.xyz/images/wechatpay.png">
+<meta property="og:image" content="https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/IMG_4057.JPG">
+<meta property="og:image" content="https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/LifeGame/Conways_game_of_life_breeder_animation.gif">
+<meta property="og:image" content="https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/RedBlackTree/20200130110010645.png">
+<meta property="og:image" content="https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/SegmentTree/20200129085313108.png">
+<meta property="og:image" content="https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/DisjointSet_%E5%B9%B6%E6%9F%A5%E9%9B%86/20200129092223020.png">
+<meta property="og:image" content="https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/%E5%AD%97%E5%85%B8%E6%A0%91/20200129091205953.png">
+<meta property="og:image" content="https://www.ccyh.xyz/images/codehub.ico">
+<meta property="og:updated_time" content="2020-02-07T05:29:07.645Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Code·Hub">
+<meta name="twitter:description" content="Code·Hub          (adsbygoogle = window.adsbygoogle || []).push({     google_ad_client: &quot;ca-pub-7097707906527513&quot;,     enable_page_level_ads: true   });    (adsbygoogle = window.adsbygoog">
+<meta name="twitter:image" content="https://www.ccyh.xyz/images/codehub.ico">
+
+
+<link rel="alternative" href="/atom.xml" title="" type="application/atom+xml">
+
+
+
+<link rel="icon" href="/images/gen.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/railscasts.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-133326618-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-133326618-2');
+</script>
+
+
+    
+    
+    
+    
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:1304349,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+
+
+<link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body class="is-3-column" style="background-image:url('https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/backgroundimg/20.jpg');background-repeat:no-repeat;background-size: cover;background-attachment:fixed;">
+    <!-- <div class="stars"></div>  背景层，不要删除，不然没有作用-->
+    <script>
+        $(document).ready(function(){
+          var stars=800;  /*星星的密集程度，数字越大越多*/
+          var $stars=$(".stars");
+          var r=800;   /*星星的看起来的距离,值越大越远,可自行调制到自己满意的样子*/
+          for(var i=0;i<stars;i++){
+            var $star=$("<div/>").addClass("star");
+            $stars.append($star);
+          }
+          $(".star").each(function(){
+            var cur=$(this);
+            var s=0.2+(Math.random()*1);
+            var curR=r+(Math.random()*300);
+            cur.css({ 
+              transformOrigin:"0 0 "+curR+"px",
+              transform:" translate3d(0,0,-"+curR+"px) rotateY("+(Math.random()*360)+"deg) rotateX("+(Math.random()*-50)+"deg) scale("+s+","+s+")"
+               
+            })
+          })
+        })
+</script>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/codehub.ico" alt="" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">🏡主页</a>
+                
+                <a class="navbar-item" href="/archives">📚归档</a>
+                
+                <a class="navbar-item" href="/categories">🎏分类</a>
+                
+                <a class="navbar-item" href="/tags">🔖标签</a>
+                
+                <a class="navbar-item" href="/messagebd">📭留言</a>
+                
+                <a class="navbar-item" href="/links">🔗友情の链接</a>
+
+                <a class="navbar-item" href="/about">👤关于</a>
+                
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="My GitHub" href="https://github.com/YHCClin?tab=repositories">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                    <a class="navbar-item" target="_blank" title="RSS" href="https://www.ccyh.xyz/atom.xml">
+                        
+                        <i class="fab fa-forumbee"></i>
+                        
+                    </a>
+                    
+                    <a class="navbar-item" target="_blank" title="LeetCode" href="https://leetcode-cn.com/u/ccyh/">
+                        
+                        <i class="fab fa-gitlab"></i>
+                        
+                    </a>
+                
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="parent">
+    
+        <img src="https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/backgroundimg/4.jpg" style="width:99%;height:auto;text-align: center;border-radius: 2px;background-color: transparent;"></img>
+
+    <div class="child">
+        <div align="center" style="margin-top:-20px;margin-left:-29px;text-align: center;">
+            <hr class="style-one" style="width:50%;" />
+
+            <span id="busuanzi_container_site_uv" class="theme-info" style="font-size: 16px;margin-left:auto;margin-right:auto;">🔥🔥🔥 来访的第 <span id="busuanzi_value_site_uv" class="font1"></span> 位小伙伴你好呀！🔥🔥🔥</span>
+
+            <br>
+            <p>🍻 这是一个有问必答，畅所欲言的留言区 🍻</p>
+            <br>
+            <p style="margin-top:-25px">🍪 博客美化、友链互换、学习交流 🍪</p>
+            <br>
+            <p style="margin-top:-25px">🍭 也欢迎你对本站提出一些建议 🍭</p>
+            <br>
+        </div>
+    </div>
+        <hr class="style-one" style="width:70%;" />
+
+        <div align="left" style="width:95%;margin-left:auto;margin-right:auto;margin-bottom:20px;">
+            <div id="valine-thread"></div>
+            <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+            <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+            <script>
+                new Valine({
+                    el: '#valine-thread' ,
+                    notify: false,
+                    verify: true,
+                    app_id: 'oR2IQXqpGEFy4GHNDgdmfSMR-gzGzoHsz',
+                    app_key: 'hwYfVGzICBlXGiokUXaNqJsx',
+                    placeholder: '留下邮箱可以收到回复提醒哦 💬'
+                });
+            </script>
+            <!--
+            <div id="gitalk-container" ></div>
+            <link rel="stylesheet" href="./gitalk.css">
+            <script src="./gitalk.min.js"></script>
+            <script>
+            var gitalk = new Gitalk({
+            clientID: 'bc0b976990fb607ceea0',
+            clientSecret: '795a99dbb1a7696cb42c4748126da7b78f242cf6',
+            repo: 'YHCClin.github.io',
+            owner: 'YHCClin',
+            admin: 'YHCClin',
+            })
+            gitalk.render('gitalk-container')
+            </script>
+            -->
+        </div>
+</div>
+</div>
+</body>
+<!-- link -->
+</div>
+</section>
+
+    
+
+<footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/codehub.ico" alt="💻Liam - Dream Chaser" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                ©️ 2019 👉 2020 Liam&nbsp;
+                💖 Powered 
+                </p>
+                <p class="post-count">📜 站点字数统计 <font color="#6DE8DD"> 64.2k </font> 字</p>
+                <p id="busuanzi_container_site_pv" class="theme-info">📑 总访问-<span id="busuanzi_value_site_pv" style="color:#6DE8DD;"></span>-次 |</p>
+                <p>🌏 <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span></p>
+            </div>
+            
+            <script>
+                (function(){
+                    var bp = document.createElement('script');
+                    var curProtocol = window.location.protocol.split(':')[0];
+                    if (curProtocol === 'https') {
+                        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+                    }
+                    else {
+                        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                    }
+                    var s = document.getElementsByTagName("script")[0];
+                    s.parentNode.insertBefore(bp, s);
+                })();
+            </script>
+
+            
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        <div align="center">
+            <script>
+                var now = new Date(); 
+                function createtime() { 
+                    var grt= new Date("8/1/2019 12:49:00");//此处修改你的建站时间或者网站上线时间 
+                    now.setTime(now.getTime()+250); 
+                    days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+                    hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+                    if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+                    mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+                    seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+                    snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+                    document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+                    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+                } 
+                setInterval("createtime()",250);
+            </script>
+        </div>
+
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+        <span>
+        <script type="text/javascript" src="//rf.revolvermaps.com/0/0/4.js?i=0xetp0d4rdh&amp;m=7&amp;h=60&amp;c=ff8a00&amp;r=40" async="async"></script>
+        </span>
+        </div>
+
+    </div>
+
+    <script>
+        (function(){
+            var bp = document.createElement('script');
+            bp.src = '//push.zhanzhang.baidu.com/push.js';
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/meting@1.1.0/dist/Meting.min.js"></script>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {matchFontHeight: true},
+        SVG: {matchFontHeight: true},
+        CommonHTML: {matchFontHeight: true}
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+
+
+<script src="/js/main.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/animejs@3.0.1/lib/anime.min.js"></script>
+<script src="/js/src/firework.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+    <!-- 雪花特效 -->
+
+    <!-- tidio -->
+    
+    <script src="//code.tidio.co/ui3pfxbwv0bfvkvxwibyaejafrndrrqm.js"></script>
+    <amp-auto-ads type="adsense" data-ad-client="ca-pub-7097707906527513">
+</amp-auto-ads>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"admin":{"username":"aokilin","password_hash":"$2a$10$Ftok/UgFv5olradmR40PM.w57gZ.QOp2uXQlpSZevsU.pMi0KPHla","secret":"my super secret phrase"},"kramed":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true},"feed":{"type":"atom","path":"atom.xml","limit":20}});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+</html>
