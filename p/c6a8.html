@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+
+
+<script src="/js/fireworks.js"></script>
+<script src="/js/canvas-particle.js"></script>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<title>【数据结构】树 - Liam&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.7.0/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.7.0/dist/APlayer.min.js"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7097707906527513",
+    enable_page_level_ads: true
+  });
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> <script> (adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "ca-pub-7097707906527513", enable_page_level_ads: true }); </script>
+<script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+</script>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+    <meta name="description" content="树的基本概念">
+<meta name="keywords" content="Tree">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【数据结构】树">
+<meta property="og:url" content="https://www.ccyh.xyz/p/c6a8.html">
+<meta property="og:site_name" content="Liam&#39;s Blog">
+<meta property="og:description" content="树的基本概念">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.loli.net/2019/01/28/5c4e5b7679982.png">
+<meta property="og:image" content="https://i.loli.net/2019/01/28/5c4e5b768378b.png">
+<meta property="og:image" content="https://i.loli.net/2019/01/28/5c4e5b76a92a2.png">
+<meta property="og:image" content="https://i.loli.net/2019/01/28/5c4e5b768378b.png">
+<meta property="og:image" content="https://i.loli.net/2019/01/28/5c4e5b76b04b4.png">
+<meta property="og:image" content="https://i.loli.net/2019/01/28/5c4e5b7746fce.png">
+<meta property="og:image" content="https://i.loli.net/2019/01/28/5c4e5b775c25b.png">
+<meta property="og:image" content="https://i.loli.net/2019/01/28/5c4e5b7758a61.png">
+<meta property="og:image" content="https://i.loli.net/2019/01/28/5c4e5b7780558.png">
+<meta property="og:image" content="https://i.loli.net/2019/01/28/5c4e5b7755d25.png">
+<meta property="og:image" content="https://i.loli.net/2019/01/28/5c4e5bf2c8c41.png">
+<meta property="og:image" content="https://i.loli.net/2019/01/28/5c4e5bf2d25e8.png">
+<meta property="og:image" content="https://i.loli.net/2019/01/28/5c4e5bf2c9721.png">
+<meta property="og:image" content="https://i.loli.net/2019/01/28/5c4e5bf2d661c.png">
+<meta property="og:updated_time" content="2020-03-23T04:59:32.923Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【数据结构】树">
+<meta name="twitter:description" content="树的基本概念">
+<meta name="twitter:image" content="https://i.loli.net/2019/01/28/5c4e5b7679982.png">
+
+
+
+<link rel="alternative" href="/atom.xml" title="【数据结构】树" type="application/atom+xml">
+
+
+
+<link rel="icon" href="/images/gen.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/solarized-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-133326618-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-133326618-2');
+</script>
+
+
+    
+    
+    
+    
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:1304349,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+
+
+<link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body class="is-2-column">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/codehub.ico" alt="【数据结构】树" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">🏡主页</a>
+                
+                <a class="navbar-item" href="/archives">📚归档</a>
+                
+                <a class="navbar-item" href="/categories">🎏分类</a>
+                
+                <a class="navbar-item" href="/tags">🔖标签</a>
+                
+                <a class="navbar-item" href="/messagebd">📭留言</a>
+                
+                <a class="navbar-item" href="/links">🔗友情链接</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="My GitHub" href="https://github.com/YHCClin?tab=repositories">
+                        
+                        <i class="fab fa-git-square"></i>
+                        
+                    </a>
+                    
+                    <a class="navbar-item" target="_blank" title="RSS" href="https://www.ccyh.xyz/atom.xml">
+                        
+                        <i class="fab fa-forumbee"></i>
+                        
+                    </a>
+                    
+                    <a class="navbar-item" target="_blank" title="LeetCode" href="https://leetcode-cn.com/u/ccyh/">
+                        
+                        <i class="fab fa-gitlab"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+        
+                <script type="text/javascript" src="js/theme-setting.js"></script>
+                <a class="navbar-item" id="night-nav" title="Night Mode" href="javascript:switchNight();" data-pjax-state="">
+                    <i class="fas fa-moon" id="night-icon"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    
+    <section class="section">
+        <div class="container">
+            <div id="mydiv" class="columns">
+                <div class="column is-8-tablet is-9-desktop is-9-widescreen has-order-2 column-main">
+                     
+<div class="card">
+    
+    <div class="card-image">
+        <span class="image is-7by1">
+            <img class="thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBLDbFr6CW_eRLtMdxvN1k9RSobzPNrCVdZsQQUEx8ZBqb5p2Q" alt="【数据结构】树">
+        </span>
+    </div>
+    
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                
+                <time class="level-item has-text-grey" datetime="2019-03-05T10:46:04.000Z">2019-03-05</time>
+                <i class="fa fa-folder-open" style="margin-left:4px;"> </i>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/数据结构/">数据结构</a>
+                </div>
+                
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    
+                    24 分钟 读完 (大约 3644 个字)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                【数据结构】树
+            
+        </h1>
+        <div class="content">
+            <h4 id="树的基本概念"><a href="#树的基本概念" class="headerlink" title="树的基本概念"></a>树的基本概念</h4><a id="more"></a>
+<hr>
+<p><strong>树的定义：</strong><br>前面所提到的线性结构的元素是一种一对一的关系，而树是一种一对多的非线性结构，下面将通过一个具体的树的例子讲解到底什么样的结构才是树以 及树的一些相关术语：</p>
+<p><img src="https://i.loli.net/2019/01/28/5c4e5b7679982.png" alt=""></p>
+<p>上图就是个树结构的概图了，我们可以看到它是由唯一的一个根节点和若干棵互不相交的子树组成的，由此可知树的定义是地柜的，即在树的定义中又用到了树的定义。这里需要注意的是，树的结点数可以是零，若为零时，称为一棵<strong>空树</strong>。<br><strong>结点：</strong>上图中的每一个橙色圆圈都是结点，结点中不仅有数据域，还存在几个或零个指向其子树的指针；<br><strong>结点的度：</strong>该节点所引申出的分支数目，如上图中的B结点，向下引申出了E和F，故其度为2；<br><strong>树的度：</strong>树的度为树中所有结点的度的最大值，如上图树的度为A结点的度为3；<br><strong>叶子结点：</strong>又称为<em>终端结点</em>，指的是度为零的结点<br><strong>非终端结点：</strong>又称为分支结点，指的是度不为零的结点，上图中的ABCDEG都是非终端结点。另外，非终端结点除去根节点A之外的所有结点又称为<em>内部结点</em>。<br><strong>祖先：</strong>从树的根节点到某一节点的路径上的所有结点都成为该结点的祖先结点，如E的祖先节点为：<br>A和B，因为路径为：A–B–E；<br><strong>层次：</strong>根处为第一层，以此类推……，如上图树的层次为4层；<br><strong>结点的深度和高度：</strong>联系实际，只需记住，高度是从底往上数；而深度是从上往下数；比如结点B的高度为3；而深度为2。根节点A的高度为树的高度为4；<br><strong>有序树：</strong>树中结点的子树从左到右都是有次序的不能交换<br><strong>无序树：</strong>树中结点的子树没有次序，可以任意交换<br><strong>丰满树：</strong>理想的平衡树，要求除了最底层外，其他层都是满的<br><strong>森林：</strong>若干棵互不相交的树的集合，若吧上图中的根节点A去掉，就成了一个森林</p>
+<hr>
+<h4 id="树的存储结构"><a href="#树的存储结构" class="headerlink" title="树的存储结构"></a>树的存储结构</h4><ul>
+<li>顺序存储：<br>双亲存储结构，亦称双亲表示法(克鲁斯卡尔算法)</li>
+<li>链式存储：<br>孩子存储结构（孩子表示法）<br>孩子兄弟存储结构（孩子兄弟表示法）</li>
+</ul>
+<hr>
+<h4 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h4><ul>
+<li>二叉树的五种基本形式</li>
+<li>满二叉树的概念</li>
+<li>完全二叉树的概念<h4 id="二叉树的几个重要性质"><a href="#二叉树的几个重要性质" class="headerlink" title="二叉树的几个重要性质"></a>二叉树的几个重要性质</h4></li>
+<li><strong>性质一：</strong>非空二叉树上叶子结点的数量等于双分支结点数加 1，即为$ n_0 = n_2 + 1$；</li>
+<li><strong>性质二：</strong>二叉树的第$i$层上最多有$2^{i-1}$;</li>
+<li><strong>性质三：</strong>高度（或深度）为$k$的二叉树最多有$2^k-1$个结点，换句话说就是一个深度为k的满二叉树的结点为$2^k-1$.</li>
+<li><strong>性质四：</strong>该性质与二叉树的顺序存储结构相关，在下面会提到，这里不再赘述；</li>
+<li><strong>性质五：</strong>函数$Catalan( ):$给定$n$个结点，能构成$h(n)$种不同的二叉树，其中：$h(n)=\frac{1}{n+1}×C_{2n}^n$ ;</li>
+<li><strong>性质六：</strong>具有$n$个结点的完全二叉树的高度（或深度）为$[\log_2{n}]+1$(向下取整)；</li>
+</ul>
+<h4 id="二叉树的存储结构"><a href="#二叉树的存储结构" class="headerlink" title="二叉树的存储结构"></a>二叉树的存储结构</h4><ul>
+<li><strong>顺序存储结构：</strong><br>用一个数组来存储<em>完全二叉树</em>，将完全二叉树的结点值按编号依次存入一个一维数组中。<br><img src="https://i.loli.net/2019/01/28/5c4e5b768378b.png" alt=""></li>
+</ul>
+<p>如果要从一维数组中还原二叉树的本来结构，按照以下规则：<br>$i$ 为某结点的编号，若$i\not=1$，则该结点的双亲结点的编号为$i/2$向下取整；<br>如果$2i\leq n$,则该结点的左孩子编号为$2i$,否则该结点没有左孩子；<br>如果$2i+1 \leq n$,则该结点的右孩子编号为$2i+1$;否则该结点无右孩子；<br>下面给出将数组还原成二叉链树的代码：<br><figure class="highlight c++ hljs"><table><tr><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">creatBTree</span><span class="hljs-params">(<span class="hljs-keyword">int</span> BT[],<span class="hljs-keyword">int</span> n,BTNode *&amp;e)</span></span>&#123;</span><br><span class="line">  BTNode *BTNode_array[maxsize];</span><br><span class="line">  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>;i &lt;= n;++i )&#123;</span><br><span class="line">    BTNode_array[i] = (BTNode*)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(BTNode));</span><br><span class="line">    BTNode_array[i] -&gt; data = BT[i];</span><br><span class="line">    BTNode_array[i] -&gt; lchild = <span class="hljs-literal">NULL</span>;</span><br><span class="line">    BTNode_array[i] -&gt; rchild = <span class="hljs-literal">NULL</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>;i &lt;= n;++i)&#123;</span><br><span class="line">    <span class="hljs-keyword">if</span>(<span class="hljs-number">2</span>*i &lt;= n )&#123;</span><br><span class="line">      BTNode_array[i] -&gt; lchild = BTNode_array[<span class="hljs-number">2</span>*i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">if</span>((<span class="hljs-number">2</span>*i+<span class="hljs-number">1</span>) &lt;= n)&#123;</span><br><span class="line">      BTNode_array[i] -&gt; rchild = BTNode_array[<span class="hljs-number">2</span>*i+<span class="hljs-number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  e = BTNode_array[<span class="hljs-number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><strong>链式存储结构：</strong><br>为了能够存储任意形式的二叉树结构，且根据二叉树一对多的非线性关系，设计出了二叉树的链式存储结构，结点定义如下：<figure class="highlight c++ hljs"><table><tr><td class="code"><pre><span class="line"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">BTNode</span>&#123;</span></span><br><span class="line">	<span class="hljs-keyword">int</span> data; <span class="hljs-comment">//数据域</span></span><br><span class="line">	<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">BTNode</span> *<span class="hljs-title">lchild</span>;</span><span class="hljs-comment">//指向左孩子的指针</span></span><br><span class="line">	<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">BTNode</span> *<span class="hljs-title">rchild</span>;</span><span class="hljs-comment">//指向右孩子的指针</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="二叉树的遍历算法-递归实现-："><a href="#二叉树的遍历算法-递归实现-：" class="headerlink" title="二叉树的遍历算法(递归实现)："></a>二叉树的遍历算法(递归实现)：</h4><p><strong>深度优先遍历：</strong></p>
+<ul>
+<li><p>前序遍历：</p>
+<figure class="highlight c++ hljs"><table><tr><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">preorder</span><span class="hljs-params">(BTNode *p)</span></span>&#123;</span><br><span class="line">	<span class="hljs-keyword">if</span>(p != <span class="hljs-literal">NULL</span>)&#123;</span><br><span class="line">		Visit(p);</span><br><span class="line">		preorder(p -&gt; lchild);</span><br><span class="line">		preorder(p -&gt; rchild);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>中序遍历：</p>
+<figure class="highlight c++ hljs"><table><tr><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">inorder</span><span class="hljs-params">(BTNode *p)</span></span>&#123;</span><br><span class="line">	<span class="hljs-keyword">if</span>(p != <span class="hljs-literal">NULL</span>)&#123;</span><br><span class="line">		inorder(p -&gt; lchild);</span><br><span class="line">		Visit(p);</span><br><span class="line">		inorder(p -&gt; rchild);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>后序遍历：</p>
+<figure class="highlight c++ hljs"><table><tr><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">postorder</span><span class="hljs-params">(BTNode *p)</span></span>&#123;</span><br><span class="line">	<span class="hljs-keyword">if</span>(p != <span class="hljs-literal">NULL</span>)&#123;</span><br><span class="line">		postorder(p -&gt; lchild);</span><br><span class="line">		postorder(p -&gt; rchild);</span><br><span class="line">		Visit(p);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>广度优先遍历：</strong></p>
+<ul>
+<li>算法流程图解：<br><img src="https://i.loli.net/2019/01/28/5c4e5b76a92a2.png" alt=""><figure class="highlight c++ hljs"><table><tr><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">level</span> <span class="hljs-params">(BTNode *p)</span></span>&#123;</span><br><span class="line">	<span class="hljs-keyword">if</span>(p != <span class="hljs-literal">NULL</span>)&#123;</span><br><span class="line">		BTNode *que[maxsize];</span><br><span class="line">		<span class="hljs-keyword">int</span> front = <span class="hljs-number">0</span>;</span><br><span class="line">		<span class="hljs-keyword">int</span> rear = <span class="hljs-number">0</span>;</span><br><span class="line">		BTNode *q;</span><br><span class="line">		rear = (rear + <span class="hljs-number">1</span>)%maxsize;</span><br><span class="line">		que[rear] = p;</span><br><span class="line">		<span class="hljs-keyword">while</span>(front != rear)&#123;</span><br><span class="line">			front = (front + <span class="hljs-number">1</span>)%maxsize;</span><br><span class="line">			q = que[front];</span><br><span class="line">			Visit(q);</span><br><span class="line">			<span class="hljs-keyword">if</span>(q -&gt; lchild != <span class="hljs-literal">NULL</span>)&#123;</span><br><span class="line">				rear = (rear + <span class="hljs-number">1</span>)%maxsize;</span><br><span class="line">				que[rear] = q -&gt; lchild;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">if</span>(q -&gt; rchild != <span class="hljs-literal">NULL</span>)&#123;</span><br><span class="line">				rear = (rear + <span class="hljs-number">1</span>)%maxsize;</span><br><span class="line">				que[rear] = q -&gt; rchild;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="二叉树的遍历算法-非递归实现"><a href="#二叉树的遍历算法-非递归实现" class="headerlink" title="二叉树的遍历算法(非递归实现)"></a>二叉树的遍历算法(非递归实现)</h4><p><img src="https://i.loli.net/2019/01/28/5c4e5b768378b.png" alt=""></p>
+<h6 id="上图而查处将作为例子方便讲解下面的算法"><a href="#上图而查处将作为例子方便讲解下面的算法" class="headerlink" title="上图而查处将作为例子方便讲解下面的算法"></a>上图而查处将作为例子方便讲解下面的算法</h6><hr>
+<p><strong>深度优先遍历算法：</strong></p>
+<ul>
+<li><p>先序遍历：<br><img src="https://i.loli.net/2019/01/28/5c4e5b76b04b4.png" alt=""></p>
+<figure class="highlight c++ hljs"><table><tr><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">preorderNonrecursion</span><span class="hljs-params">(BTNode *bt)</span></span>&#123;</span><br><span class="line">	<span class="hljs-keyword">if</span>(bt != <span class="hljs-literal">NULL</span>)&#123;</span><br><span class="line">	BTNode *Stack[maxsize];</span><br><span class="line">	<span class="hljs-keyword">int</span> top = <span class="hljs-number">-1</span>;</span><br><span class="line">	BTNode *p;</span><br><span class="line">	Stack[++top] = bt;</span><br><span class="line">	<span class="hljs-keyword">while</span>(top != <span class="hljs-literal">NULL</span>)&#123;</span><br><span class="line">	    p = Stack[top--];</span><br><span class="line">	    Visit(p);</span><br><span class="line">	    <span class="hljs-keyword">if</span>(p -&gt; rchild != <span class="hljs-literal">NULL</span>)&#123;</span><br><span class="line">	        Stack[++top] = p -&gt; rchild;</span><br><span class="line">	    &#125;</span><br><span class="line">	    <span class="hljs-keyword">if</span>(p -&gt; lchild != <span class="hljs-literal">NULL</span>)&#123;</span><br><span class="line">	        Stack[++top] = p -&gt; lchild;</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>后序遍历：<br>先序遍历算法遍历例子二叉树将得到：A B D E C F G<br>后序遍历例子二叉树：D E B F G C A<br>将后序遍历序列逆置：A C G F B E D<br>可以发现，如果将先序遍历序列中对左右子树的遍历顺序交换一下，就可以得到逆后序遍历序列，再将逆后序序列逆置即可得到后序遍历序列。<br><img src="https://i.loli.net/2019/01/28/5c4e5b7746fce.png" alt=""></p>
+<figure class="highlight c++ hljs"><table><tr><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">postorderNonrecursion</span><span class="hljs-params">(BTNode *bt)</span></span>&#123;</span><br><span class="line">	<span class="hljs-keyword">if</span>(bt != <span class="hljs-literal">NULL</span>)&#123;</span><br><span class="line">		BTNode Stack1[maxsize];</span><br><span class="line">		BTNode Stack2[maxsize];</span><br><span class="line">		<span class="hljs-keyword">int</span> top1 = <span class="hljs-number">-1</span>;</span><br><span class="line">		<span class="hljs-keyword">int</span> top2 = <span class="hljs-number">-1</span>;</span><br><span class="line">		BTNode *p = <span class="hljs-literal">NULL</span>;</span><br><span class="line">		Stack1[++top1] = bt;</span><br><span class="line">		<span class="hljs-keyword">while</span>(top1 != <span class="hljs-number">-1</span>)&#123;</span><br><span class="line">			p = Stack1[top--];</span><br><span class="line">			Stack2[++top] = p;</span><br><span class="line">			<span class="hljs-keyword">if</span>(p -&gt; lchild != <span class="hljs-literal">NULL</span>)&#123;</span><br><span class="line">				Stack1[++top] = p -&gt; lchild;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">if</span>(p -&gt; rchild != <span class="hljs-literal">NULL</span>)&#123;</span><br><span class="line">				Stack1[++top] = p -&gt; rchild;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="hljs-keyword">while</span>(top2 != <span class="hljs-number">-1</span>)&#123;</span><br><span class="line">			p = Stack2[top--];</span><br><span class="line">			Visit(p);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>中序遍历：<br><img src="https://i.loli.net/2019/01/28/5c4e5b775c25b.png" alt=""></p>
+<figure class="highlight c++ hljs"><table><tr><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">inorderNonrecursion</span><span class="hljs-params">(BTNode *bt)</span></span>&#123;</span><br><span class="line">	<span class="hljs-keyword">if</span>(bt != <span class="hljs-literal">NULL</span>)&#123;</span><br><span class="line">		BTNode *Stack[maxsize];</span><br><span class="line">		<span class="hljs-keyword">int</span> top = <span class="hljs-number">-1</span>;</span><br><span class="line">		BTNode *p;</span><br><span class="line">		p = bt;</span><br><span class="line">		<span class="hljs-keyword">while</span>(top != <span class="hljs-number">-1</span> || p != <span class="hljs-literal">NULL</span>)&#123;</span><br><span class="line">			<span class="hljs-keyword">while</span>(p -&gt; lchild != <span class="hljs-literal">NULL</span>)&#123;</span><br><span class="line">				Stack[++top] = p;</span><br><span class="line">				p = p -&gt; lchild;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="hljs-keyword">if</span>(top != <span class="hljs-number">-1</span>)&#123;</span><br><span class="line">				p = Stack[top--];</span><br><span class="line">				Visit(p);</span><br><span class="line">				p = p -&gt; rchild;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="线索二叉树"><a href="#线索二叉树" class="headerlink" title="线索二叉树"></a>线索二叉树</h4><hr>
+<p>对于二叉链表存储结构，$n$个结点的二叉树有$n+1$个空链域，能不能把这些空链域有效地利用起来，使二叉树的遍历更加高效呢？答案是肯定的，这就是线索二叉树的由来。</p>
+<ul>
+<li><p>线索二叉树的优势：二叉树被线索化后近似于一个线性结构，分支结构的遍历操作就被转化成了近似线性结构的遍历操作，通过线索的辅助使得寻找当前结点的前驱或者后继的效率大大提高。<br><strong>线索二叉树的构造：</strong><br><img src="https://i.loli.net/2019/01/28/5c4e5b7758a61.png" alt=""><br><strong>结点定义：</strong></p>
+<figure class="highlight c++ hljs"><table><tr><td class="code"><pre><span class="line"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">TBTNode</span>&#123;</span></span><br><span class="line">	<span class="hljs-keyword">int</span> data; <span class="hljs-comment">// 数据域</span></span><br><span class="line">	<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">TBTNode</span> *<span class="hljs-title">lchild</span>;</span> <span class="hljs-comment">// 左孩子（前驱结点）指针</span></span><br><span class="line">	<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">TBTNode</span> *<span class="hljs-title">rchild</span>;</span> <span class="hljs-comment">// 右孩子（后继结点）指针</span></span><br><span class="line">	<span class="hljs-keyword">int</span> ltag , rtag; <span class="hljs-comment">//线索标记</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>根据二叉树的遍历方式的不同，线索二叉树可以分为先序线索二叉树、中序线索二叉树和后序线索二叉树。对一棵二叉树中的所有结点的空指针按照某种遍历方式加上线索的过程叫做二叉树的线索化，被线索化的二叉树就称为线索二叉树。<br><strong>通过中序遍历对二叉树线索化代码：</strong></p>
+<figure class="highlight c++ hljs"><table><tr><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InThread</span><span class="hljs-params">(TBTNode *p,TBTNode *&amp;pre)</span></span>&#123;</span><br><span class="line">	<span class="hljs-keyword">if</span>(p != <span class="hljs-literal">NULL</span>)&#123;</span><br><span class="line">		InThread(p -&gt; lchild,pre); <span class="hljs-comment">// 递归地线索化左子树</span></span><br><span class="line">		<span class="hljs-keyword">if</span>(p -&gt; lchild == <span class="hljs-literal">NULL</span>)&#123; <span class="hljs-comment">// 建立当前结点前驱线索</span></span><br><span class="line">			p -&gt; lchild = pre;</span><br><span class="line">			p -&gt; ltag = <span class="hljs-number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="hljs-keyword">if</span>(pre != <span class="hljs-literal">NULL</span> &amp;&amp; pre -&gt; rchild == <span class="hljs-literal">NULL</span>)&#123; <span class="hljs-comment">// 建立前驱结点的后继线索</span></span><br><span class="line">			pre -&gt; rchild = p;</span><br><span class="line">			pre -&gt; rtag = <span class="hljs-number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		pre = p; <span class="hljs-comment">// pre 跟上 p，之后p会指向下一个结点</span></span><br><span class="line">		InThread(p -&gt; rchild,pre); <span class="hljs-comment">// 递归地线索化右子树</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>通过中序遍历线索二叉树的主程序如下：</strong><br><figure class="highlight c++ hljs"><table><tr><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">creatTBTNode</span><span class="hljs-params">(TBTNode *root)</span></span>&#123;</span><br><span class="line">	TBTNode *pre = <span class="hljs-literal">NULL</span>;</span><br><span class="line">	<span class="hljs-keyword">if</span>(root != <span class="hljs-literal">NULL</span>)&#123;</span><br><span class="line">		InThread(root,pre); <span class="hljs-comment">//递归建立线索二叉树</span></span><br><span class="line">		pre -&gt; rchild = <span class="hljs-literal">NULL</span>; <span class="hljs-comment">// 处理最后一个结点</span></span><br><span class="line">		pre -&gt; rtag = <span class="hljs-number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>遍历中序线索二叉树：</strong><br><em>寻找中序线索二叉树 root 的第一个遍历结点：</em><br><figure class="highlight c++ hljs"><table><tr><td class="code"><pre><span class="line"><span class="hljs-function">TBTNode *<span class="hljs-title">First</span><span class="hljs-params">(TBTNode *root)</span></span>&#123;</span><br><span class="line">	<span class="hljs-keyword">while</span>( root -&gt; ltag == <span class="hljs-number">0</span>)&#123;</span><br><span class="line">		root = root -&gt; lchild;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="hljs-keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><em>在中序线索二叉树中，求结点p在中序下的后继结点的算法：</em><br><figure class="highlight c++ hljs"><table><tr><td class="code"><pre><span class="line"><span class="hljs-function">TBTNode *<span class="hljs-title">Next</span><span class="hljs-params">(TBTNode *p)</span></span>&#123;</span><br><span class="line">	<span class="hljs-keyword">if</span>(p -&gt; rtag == <span class="hljs-number">0</span>)&#123;</span><br><span class="line">		<span class="hljs-keyword">return</span> First(p -&gt; rchild);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="hljs-keyword">else</span></span><br><span class="line">		<span class="hljs-keyword">return</span> p -&gt; rchild;  <span class="hljs-comment">// rtag = 1; 直接返回后继线索</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><em>在中序线索二叉树上执行中序遍历：</em><br><figure class="highlight c++ hljs"><table><tr><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Inoreder</span><span class="hljs-params">(TBTNode *root)</span></span>&#123;</span><br><span class="line">	<span class="hljs-keyword">for</span> (TBTNode *p = First(root);p != <span class="hljs-literal">NULL</span>;p = Next(p))&#123;</span><br><span class="line">		Visit(p);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>通过前序遍历对二叉树线索化</strong><br><figure class="highlight c++ hljs"><table><tr><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">preInThread</span><span class="hljs-params">(TBTNode *p,TBTNode *&amp;pre)</span></span>&#123;</span><br><span class="line">	<span class="hljs-keyword">if</span> (p != <span class="hljs-literal">NULL</span>)&#123;</span><br><span class="line">		<span class="hljs-keyword">if</span>(p -&gt; lchild != <span class="hljs-literal">NULL</span>)&#123;</span><br><span class="line">			p -&gt; lchild = pre;</span><br><span class="line">			p -&gt; ltag = <span class="hljs-number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="hljs-keyword">if</span> (pre != <span class="hljs-literal">NULL</span> &amp;&amp; pre -&gt; rchild == <span class="hljs-literal">NULL</span>)&#123;</span><br><span class="line">			pre -&gt; rchild = p;</span><br><span class="line">			pre -&gt; rtag = <span class="hljs-number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		pre = p;</span><br><span class="line">		<span class="hljs-keyword">if</span> (p -&gt; ltag == <span class="hljs-number">0</span>)&#123;</span><br><span class="line">			preThread(p -&gt; lchild,pre);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="hljs-keyword">if</span> (p -&gt; rtag == <span class="hljs-number">0</span>)&#123;</span><br><span class="line">			preThread(p -&gt; rchild,pre);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>遍历前序线索二叉树算法：</strong><br><figure class="highlight c++ hljs"><table><tr><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">preorder</span><span class="hljs-params">(TBTNode *root)</span></span>&#123;</span><br><span class="line">	<span class="hljs-keyword">if</span>(root != <span class="hljs-literal">NULL</span>)&#123;</span><br><span class="line">		TBTNode *p = root;</span><br><span class="line">		<span class="hljs-keyword">while</span>(p != <span class="hljs-literal">NULL</span>)&#123;</span><br><span class="line">			<span class="hljs-keyword">while</span>(p -&gt; ltag == <span class="hljs-number">0</span>)&#123;</span><br><span class="line">				Visit(p);</span><br><span class="line">				p = p -&gt; lchild;</span><br><span class="line">			&#125;</span><br><span class="line">			Visit(p);</span><br><span class="line">			p = p -&gt; rchild;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="树与森林的互相转换"><a href="#树与森林的互相转换" class="headerlink" title="树与森林的互相转换"></a>树与森林的互相转换</h4><hr>
+<hr>
+<h4 id="树与二叉树的应用"><a href="#树与二叉树的应用" class="headerlink" title="树与二叉树的应用"></a>树与二叉树的应用</h4><hr>
+<h5 id="二叉排序树与二叉平衡树"><a href="#二叉排序树与二叉平衡树" class="headerlink" title="二叉排序树与二叉平衡树"></a>二叉排序树与二叉平衡树</h5><hr>
+<h5 id="赫夫曼树与赫夫曼编码"><a href="#赫夫曼树与赫夫曼编码" class="headerlink" title="赫夫曼树与赫夫曼编码"></a>赫夫曼树与赫夫曼编码</h5><hr>
+<p><strong>赫夫曼树的相关概念及介绍：</strong><br>赫夫曼树又被称为最优二叉树，它的特点是<strong>带权路径最短</strong>。下面介绍几个相关概念：</p>
+<ul>
+<li><strong>路径：</strong>指从树中一个结点到另一个结点的分支所构成的路线</li>
+<li><strong>路径长度：</strong>路径上的分支数目</li>
+<li><strong>树的路径长度：</strong>从根到<strong>每个结点</strong>的路径长度之和</li>
+<li><strong>带权路径长度：</strong>结点具有<strong>权值</strong>，从该结点到<strong>根结点</strong>的路径长度乘于该结点的权值就是该结点的带权路径长度</li>
+<li><strong>树的带权路径长度（WPL）：</strong>树中所有<strong>叶子结点</strong>的带权路径长度之和</li>
+</ul>
+<p><strong>赫夫曼树的构造方法：</strong><br>给定$n$个权值，用这些个权值来构造赫夫曼树：<br>首先了解一下赫夫曼树的一些特点：</p>
+<ul>
+<li>权值越大的结点距离根节点越近</li>
+<li>树中没有度为1的结点</li>
+<li>树的带权路径长度最短</li>
+</ul>
+<p>根据上述特点反推我们是如何来构造一个赫夫曼树：</p>
+<ul>
+<li>从最底层开始构造</li>
+<li>最底层结点离根节点月远故其路径长度最大，而为使其带权路径长度最短，应选择权值最小的结点作为最底层结点</li>
+<li>权值最大的结点离根节点最近</li>
+</ul>
+<p>有了上述导论我们就可以开始构造一棵赫夫曼树了：<br><img src="https://i.loli.net/2019/01/28/5c4e5b7780558.png" alt=""><br>上图构建的赫夫曼树的WPL为：$8×1+7×2+5×3+4×4+2×4=61$,这是这些结点所能构造的所有不同的树中树的带权路径长度最小的构造方式。</p>
+<h5 id="赫夫曼编码："><a href="#赫夫曼编码：" class="headerlink" title="赫夫曼编码："></a>赫夫曼编码：</h5><hr>
+<h6 id="利用赫夫曼树的特点来对文件进行压缩存储"><a href="#利用赫夫曼树的特点来对文件进行压缩存储" class="headerlink" title="* 利用赫夫曼树的特点来对文件进行压缩存储"></a>* 利用赫夫曼树的特点来对文件进行压缩存储</h6><hr>
+<p>看个例子：如果有这样一串字符将要被存储于计算机中$AECCBCDEEDECCCBAEEEBECDDBB$<br>选三位长度的二进制数为A到E编码：<br><img src="https://i.loli.net/2019/01/28/5c4e5b7755d25.png" alt=""><br>根据上表我们可以将该字符串编码为：<br>$000100010010001010011100100011100010010010001000100100100001000100100100001100010011011001001$<br>解码时每三位一个字符解码<br>总共需要78位来存储这个字符串，是否有根节省空间的编码形式呢？</p>
+<p>答案是肯定的，我们统计一下这个字符串中各个字符出现的频率（权值）：<br><img src="https://i.loli.net/2019/01/28/5c4e5bf2c8c41.png" alt=""><br>利用上表的信息构建一棵霍夫曼树，并将树中每个结点的左右分支进行编号（左0右1）：<br><img src="https://i.loli.net/2019/01/28/5c4e5bf2d25e8.png" alt=""><br>到此我们得到了对A到E的霍夫曼编码规则：<br><img src="https://i.loli.net/2019/01/28/5c4e5bf2c9721.png" alt=""><br>根据上表的编码规则可将字符串编码为：<br>$1110010101101011110011110101010110111000011001011111111110110$<br>只需61位的空间就能存储该字符串，可以直观地发现比普通编码短了很多。</p>
+<p><strong>解码霍夫曼编码：</strong><br>解码霍夫曼编码需要用到上诉的那棵霍夫曼树，从左至右依次读取字符串编码，从根结点开始，读取到1则向右分支走，读取到0则向左分支走，直到走到叶子结点并读取该结点。</p>
+<hr>
+<ul>
+<li>[注] <em>对于同一组结点，构造出的霍夫曼树是不唯一的。但是，得到的不同的霍夫曼树的WPL却是相同的</em></li>
+</ul>
+<h5 id="霍夫曼-n-叉树"><a href="#霍夫曼-n-叉树" class="headerlink" title="霍夫曼$n$叉树"></a>霍夫曼$n$叉树</h5><ul>
+<li><em>霍夫曼树不都是二叉树，霍夫曼二叉树只是霍夫曼$n$叉树的一种特例</em></li>
+</ul>
+<hr>
+<p>构造霍夫曼$n$叉树的逻辑与构造霍夫曼二叉树并无二异，我们知道对于结点数目大于等于2的待处理序列都可以构造霍夫曼二叉树。但却不一定能用来构造霍夫曼n叉树，构造n叉树的结点数目要求为大于等于3的奇数，若非奇数可以加上一个权值为0的结点。<br><img src="https://i.loli.net/2019/01/28/5c4e5bf2d661c.png" alt=""></p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Tree/">Tree</a>
+                </div>
+            </div>
+        </div>
+        
+        
+
+        
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5d123718ccac450012baa1b1&amp;product=social-ab" async="async"></script>
+
+        
+  <div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>本文作者：</strong>Liam
+      </li>
+      <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="" title="{{ page.title }}">【数据结构】树</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>发布时间：</strong>
+      <a href="" title="{{ page.title }}">2019年3月5日 - 18时03分</a>
+      </li>
+      <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+      </li>
+    </ul>
+  <div>
+    
+
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？点个赞留个言再走吧！</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>Alipay</span>
+    <div class="qrcode"><img src="/images/zi.jpg" alt="Alipay"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>WeChatPay</span>
+    <div class="qrcode"><img src="/images/we.jpg" alt="WeChatPay"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/p/ae1f.html">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">【数据结构】线性表</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/p/10e3.html">
+                <span class="level-item">博客迁移后的发布测试</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+    <div class="card card-transparent">
+        <div class="card-content">
+            <h2 align="center" style="padding:10px;">温馨提示，此处可能会出现广告</h2>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- article -->
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7097707906527513" data-ad-slot="2635009920" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#valine-thread',
+        notify: false,
+        verify: true,
+        app_id: 'oR2IQXqpGEFy4GHNDgdmfSMR-gzGzoHsz',
+        app_key: 'hwYfVGzICBlXGiokUXaNqJsx',
+        placeholder: '留下邮箱可以收到回复通知哦~'
+    });
+</script>
+
+    </div>
+</div>
+
+
+</div></div>
+
+                </div>
+                 
+                
+
+
+
+
+<div class="column is-4-tablet is-3-desktop is-3-widescreen  has-order-1 column-left is-sticky">
+    
+        
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#树的基本概念">
+        <span class="has-mr-6">1</span>
+        <span>树的基本概念</span>
+        </a></li><li>
+        <a class="is-flex" href="#树的存储结构">
+        <span class="has-mr-6">2</span>
+        <span>树的存储结构</span>
+        </a></li><li>
+        <a class="is-flex" href="#二叉树">
+        <span class="has-mr-6">3</span>
+        <span>二叉树</span>
+        </a></li><li>
+        <a class="is-flex" href="#二叉树的几个重要性质">
+        <span class="has-mr-6">4</span>
+        <span>二叉树的几个重要性质</span>
+        </a></li><li>
+        <a class="is-flex" href="#二叉树的存储结构">
+        <span class="has-mr-6">5</span>
+        <span>二叉树的存储结构</span>
+        </a></li><li>
+        <a class="is-flex" href="#二叉树的遍历算法-递归实现-：">
+        <span class="has-mr-6">6</span>
+        <span>二叉树的遍历算法(递归实现)：</span>
+        </a></li><li>
+        <a class="is-flex" href="#二叉树的遍历算法-非递归实现">
+        <span class="has-mr-6">7</span>
+        <span>二叉树的遍历算法(非递归实现)</span>
+        </a><ul class="menu-list"><ul class="menu-list"><li>
+        <a class="is-flex" href="#上图而查处将作为例子方便讲解下面的算法">
+        <span class="has-mr-6">7.1.1</span>
+        <span>上图而查处将作为例子方便讲解下面的算法</span>
+        </a></li></ul></ul></li><li>
+        <a class="is-flex" href="#线索二叉树">
+        <span class="has-mr-6">8</span>
+        <span>线索二叉树</span>
+        </a></li><li>
+        <a class="is-flex" href="#树与森林的互相转换">
+        <span class="has-mr-6">9</span>
+        <span>树与森林的互相转换</span>
+        </a></li><li>
+        <a class="is-flex" href="#树与二叉树的应用">
+        <span class="has-mr-6">10</span>
+        <span>树与二叉树的应用</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#二叉排序树与二叉平衡树">
+        <span class="has-mr-6">10.1</span>
+        <span>二叉排序树与二叉平衡树</span>
+        </a></li><li>
+        <a class="is-flex" href="#赫夫曼树与赫夫曼编码">
+        <span class="has-mr-6">10.2</span>
+        <span>赫夫曼树与赫夫曼编码</span>
+        </a></li><li>
+        <a class="is-flex" href="#赫夫曼编码：">
+        <span class="has-mr-6">10.3</span>
+        <span>赫夫曼编码：</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#利用赫夫曼树的特点来对文件进行压缩存储">
+        <span class="has-mr-6">10.3.1</span>
+        <span>* 利用赫夫曼树的特点来对文件进行压缩存储</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#霍夫曼-n-叉树">
+        <span class="has-mr-6">10.4</span>
+        <span>霍夫曼$n$叉树</span>
+        </a></li></ul></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <img class="image is-128x128 has-mb-6" src="https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/photo.jpg" alt="Liam">
+                    
+                    <p class="is-size-4 is-block">
+                        Liam
+                    </p>
+                    
+                    
+                    <div id="binft" align="center" style="margin:5px;"></div>
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Fujian·China</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        47
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        11
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        21
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://blog.csdn.net/Marvine">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/YHCClin">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="https://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="https://twitter.com/echo_scottlin">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+    <div align="center" style="margin-left:auto;margin-right:auto;padding:10px">
+        <hr align="center" style="width:70%;">
+        <p align="center" id="hitokoto"></p>
+        <script type="text/javascript" defer>
+            function getYiyan(){
+            $.getJSON("https://v1.hitokoto.cn/", function (data) {
+            if(data){
+                $('#hitokoto').html("");
+                $('#hitokoto').append("<strong style='color: #77C08F;'>"+data.hitokoto+"</strong>"+
+                "<p>"+"来源《"+data.from+"》</p><p>提供者-"+data.creator+"</p>");
+            }});}
+            $(function (){getYiyan();$('#hitokoto').click(function(){getYiyan();})});
+        </script>
+    </div>
+    <div align="center" style="margin-bottom: 10px;">
+        
+        <script>
+                    var binft = function (r) {
+                      function t() {
+                        return b[Math.floor(Math.random() * b.length)]
+                      }  
+                      function e() {
+                        return String.fromCharCode(94 * Math.random() + 33)
+                      }
+                      function n(r) {
+                        for (var n = document.createDocumentFragment(), i = 0; r > i; i++) {
+                          var l = document.createElement("span");
+                          l.textContent = e(), l.style.color = t(), n.appendChild(l)
+                        }
+                        return n
+                      }
+                      function i() {
+                        var t = o[c.skillI];
+                        c.step ? c.step-- : (c.step = g, c.prefixP < l.length ? (c.prefixP >= 0 && (c.text += l[c.prefixP]), c.prefixP++) : "forward" === c.direction ? c.skillP < t.length ? (c.text += t[c.skillP], c.skillP++) : c.delay ? c.delay-- : (c.direction = "backward", c.delay = a) : c.skillP > 0 ? (c.text = c.text.slice(0, -1), c.skillP--) : (c.skillI = (c.skillI + 1) % o.length, c.direction = "forward")), r.textContent = c.text, r.appendChild(n(c.prefixP < l.length ? Math.min(s, s + c.prefixP) : Math.min(s, t.length - c.skillP))), setTimeout(i, d)
+                      }
+                      var l = "",
+                      o = ["Hello!", "你好呀，陌生人！", "今天你开心了吗？", "人非圣贤，孰能无过。", "不要轻易抱怨", "抱怨只能说明自己能力不足。", "自律是最好的老师。", "每天学一点，菜鸟变大神。","怠惰是贫穷的制造厂。","忍耐力较诸脑力，尤胜一筹。","环境不会改变，解决之道在于改变自己。"].map(function (r) {
+                      return r + ""
+                      }),
+                      a = 2,
+                      g = 1,
+                      s = 5,
+                      d = 75,
+                      b = ["rgb(110,64,170)", "rgb(150,61,179)", "rgb(191,60,175)", "rgb(228,65,157)", "rgb(254,75,131)", "rgb(255,94,99)", "rgb(255,120,71)", "rgb(251,150,51)", "rgb(226,183,47)", "rgb(198,214,60)", "rgb(175,240,91)", "rgb(127,246,88)", "rgb(82,246,103)", "rgb(48,239,130)", "rgb(29,223,163)", "rgb(26,199,194)", "rgb(35,171,216)", "rgb(54,140,225)", "rgb(76,110,219)", "rgb(96,84,200)"],
+                      c = {
+                        text: "",
+                        prefixP: -s,
+                        skillI: 0,
+                        skillP: 0,
+                        direction: "forward",
+                        delay: a,
+                        step: g
+                      };
+                      i()
+                      };
+                      binft(document.getElementById('binft'));
+        </script>
+    </div>
+
+</div>
+    
+    
+        <div class="column-right-shadow  is-sticky">
+        
+            <style type="text/css">
+    .fl{ float: left; }
+    .fr{ float: right; }
+    .wrapper{ width: 250px; height: 200px; margin-top: 80px;margin-bottom: auto;margin-left: auto;margin-right: auto;}
+    .wrapper p{ padding-top: 10px; line-height: 27px; color: #999; font-size: 10px; text-align: center;  }
+    .tagcloud { position: relative; margin-top:0; font-family: Lato, sans-serif;}
+    .tagcloud a{ 
+        position: absolute;
+        font-family: Lato, sans-serif;
+        top: 0; left: 0;  
+        display: block; 
+        padding: 11px 30px; 
+        color: #32A354; 
+        font-size: 18px;
+        font-weight: bold;   
+        background-color: transparent; 
+        text-decoration: none; 
+        white-space: nowrap;
+
+        -ms-filter:"progid:DXImageTransform.Microsoft.Shadow(Strength=4,Direction=135, Color='#000000')";/*兼容ie7/8*/
+        filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=125, Strength=9);
+      /*strength是阴影大小，direction是阴影方位，单位为度，可以为负数，color是阴影颜色 （尽量使用数字）使用IE滤镜实现盒子阴影的盒子必须是行元素或以行元素显示（block或inline-block;）*/
+    }
+    .tagcloud a:hover{ color: white; font-weight: 900; padding: 4px;background-color: rgba(50,163,84,0.6);box-shadow: 0 0 5px rgba(50,163,84,0);border-radius: 8px;}
+</style>
+<script type="text/javascript" src="/js/tagcloud.js"></script>
+
+    <div class="card widget">
+        <div class="card-content">
+            <h3 class="menu-label">
+                标签云
+            </h3>
+            <div class="wrapper">
+                <div class="tagcloud fl">
+                    <a href="/tags/AI/" style="font-size: 16px;">AI</a> <a href="/tags/Algorithm/" style="font-size: 18px;">Algorithm</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Borring/" style="font-size: 10px;">Borring</a> <a href="/tags/C/" style="font-size: 10px;">C</a> <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/Graph/" style="font-size: 10px;">Graph</a> <a href="/tags/Hexo/" style="font-size: 14px;">Hexo</a> <a href="/tags/Knapsack/" style="font-size: 10px;">Knapsack</a> <a href="/tags/LeetCode/" style="font-size: 14px;">LeetCode</a> <a href="/tags/List/" style="font-size: 12px;">List</a> <a href="/tags/ML/" style="font-size: 20px;">ML</a> <a href="/tags/Math/" style="font-size: 14px;">Math</a> <a href="/tags/QuickSort/" style="font-size: 10px;">QuickSort</a> <a href="/tags/String/" style="font-size: 10px;">String</a> <a href="/tags/Tools/" style="font-size: 10px;">Tools</a> <a href="/tags/Tree/" style="font-size: 16px;">Tree</a> <a href="/tags/algorithm/" style="font-size: 10px;">algorithm</a> <a href="/tags/discretemathematics/" style="font-size: 10px;">discretemathematics</a> <a href="/tags/并查集/" style="font-size: 10px;">并查集</a>
+                </div>
+            </div><!--wrapper-->
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+        /*3D标签云*/
+        tagcloud({
+            selector: ".tagcloud",  //元素选择器
+            fontsize: 10,       //基本字体大小, 单位px
+            radius: 50,         //滚动半径, 单位px
+            mspeed: "normal",   //滚动最大速度, 取值: slow, normal(默认), fast
+            ispeed: "normal",   //滚动初速度, 取值: slow, normal(默认), fast
+            direction: 135,     //初始滚动方向, 取值角度(顺时针360): 0对应top, 90对应left, 135对应right-bottom(默认)...
+            keep: false          //鼠标移出组件后是否继续随鼠标滚动, 取值: false, true(默认) 对应 减速至初速度滚动, 随鼠标滚动
+        });
+    </script>
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/C/">
+            <span class="level-start">
+                <span class="level-item">C++</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Math/">
+            <span class="level-start">
+                <span class="level-item">Math</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Mathematics/">
+            <span class="level-start">
+                <span class="level-item">Mathematics</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/人工智能/">
+            <span class="level-start">
+                <span class="level-item">人工智能</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/工具/">
+            <span class="level-start">
+                <span class="level-item">工具</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/底层原理/">
+            <span class="level-start">
+                <span class="level-item">底层原理</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/教程/">
+            <span class="level-start">
+                <span class="level-item">教程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/数据结构/">
+            <span class="level-start">
+                <span class="level-item">数据结构</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">9</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/机器学习/">
+            <span class="level-start">
+                <span class="level-item">机器学习</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">7</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/算法/">
+            <span class="level-start">
+                <span class="level-item">算法</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">12</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/闲疯帝/">
+            <span class="level-start">
+                <span class="level-item">闲疯帝</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/p/cd37.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="20200409205522">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-09T12:55:22.000Z">2020-04-09</time></div>
+                    <a href="/p/cd37.html" class="has-link-black-ter is-size-6">20200409205522</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+
+        
+        <article class="media">
+            
+            <a href="/p/b411.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="不确定性推理">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-30T08:11:26.000Z">2020-03-30</time></div>
+                    <a href="/p/b411.html" class="has-link-black-ter is-size-6">不确定性推理</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/人工智能/">人工智能</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+
+        
+        <article class="media">
+            
+            <a href="/p/a36d.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="利用归结原理求解问题">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-08T03:18:11.000Z">2020-03-08</time></div>
+                    <a href="/p/a36d.html" class="has-link-black-ter is-size-6">利用归结原理求解问题</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/人工智能/">人工智能</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+
+        
+        <article class="media">
+            
+            <a href="/p/fba.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="归结反演">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-07T12:11:26.000Z">2020-03-07</time></div>
+                    <a href="/p/fba.html" class="has-link-black-ter is-size-6">归结反演</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/人工智能/">人工智能</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+
+        
+        <article class="media">
+            
+            <a href="/p/3027.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="谓词逻辑归结原理">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-07T03:37:40.000Z">2020-03-07</time></div>
+                    <a href="/p/3027.html" class="has-link-black-ter is-size-6">谓词逻辑归结原理</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/人工智能/">人工智能</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">8</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">7</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">11</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/AI/">
+                        <span class="tag">AI</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Algorithm/">
+                        <span class="tag">Algorithm</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Array/">
+                        <span class="tag">Array</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Blog/">
+                        <span class="tag">Blog</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Borring/">
+                        <span class="tag">Borring</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/C/">
+                        <span class="tag">C</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/C/">
+                        <span class="tag">C++</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Graph/">
+                        <span class="tag">Graph</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Hexo/">
+                        <span class="tag">Hexo</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Knapsack/">
+                        <span class="tag">Knapsack</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/LeetCode/">
+                        <span class="tag">LeetCode</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/List/">
+                        <span class="tag">List</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/ML/">
+                        <span class="tag">ML</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Math/">
+                        <span class="tag">Math</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/QuickSort/">
+                        <span class="tag">QuickSort</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/String/">
+                        <span class="tag">String</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Tools/">
+                        <span class="tag">Tools</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Tree/">
+                        <span class="tag">Tree</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/algorithm/">
+                        <span class="tag">algorithm</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/discretemathematics/">
+                        <span class="tag">discretemathematics</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/并查集/">
+                        <span class="tag">并查集</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+            
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                站点公告
+            </h3>
+            <ul class="menu-list">
+            
+            </ul>
+            <li>暂无公告</li>
+        </div>
+    </div>
+</div>
+
+
+        
+        </div>
+    
+</div>
+
+
+
+                 
+                 
+            </div>
+        </div>
+    </section>
+    
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/codehub.ico" alt="【数据结构】树" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                ©️ 2019 👉 2020 Liam&nbsp;
+                💖 Powered 
+                </p>
+                <p class="post-count">📜 站点字数统计 <font color="#6DE8DD"> 64.2k </font> 字</p>
+                <p id="busuanzi_container_site_pv" class="theme-info">📑 总访问-<span id="busuanzi_value_site_pv" style="color:#6DE8DD;"></span>-次 |</p>
+                <p id="busuanzi_container_site_uv" class="theme-info">👤 总访客-<span id="busuanzi_value_site_uv" style="color:#6DE8DD;"></span>-位</p>
+                <p>🌏 <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span></p>
+            </div>
+            
+            <script>
+                (function(){
+                    var bp = document.createElement('script');
+                    var curProtocol = window.location.protocol.split(':')[0];
+                    if (curProtocol === 'https') {
+                        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+                    }
+                    else {
+                        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                    }
+                    var s = document.getElementsByTagName("script")[0];
+                    s.parentNode.insertBefore(bp, s);
+                })();
+            </script>
+
+            
+            <div class="level-end">
+                <script type="text/javascript" src="//rf.revolvermaps.com/0/0/0.js?i=0xetp0d4rdh&amp;d=2&amp;p=1&amp;b=3&amp;w=293&amp;g=2&amp;f=comic_sans_ms&amp;fs=12&amp;r=0&amp;c0=54ff00&amp;c1=00fff6&amp;c2=9d8b63&amp;ic0=0&amp;ic1=0" async="async"></script>
+            </div>
+            <script>
+                var now = new Date(); 
+                function createtime() { 
+                    var grt= new Date("8/1/2019 12:49:00");//此处修改你的建站时间或者网站上线时间 
+                    now.setTime(now.getTime()+250); 
+                    days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+                    hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+                    if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+                    mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+                    seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+                    snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+                    document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+                    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+                } 
+                setInterval("createtime()",250);
+            </script>
+
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        </div>
+
+    </div>
+
+    <script>
+        (function(){
+            var bp = document.createElement('script');
+            bp.src = '//push.zhanzhang.baidu.com/push.js';
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/meting@1.1.0/dist/Meting.min.js"></script>
+<script src="/js/theme-setting.js" defer></script>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {matchFontHeight: true},
+        SVG: {matchFontHeight: true},
+        CommonHTML: {matchFontHeight: true}
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+
+
+<script src="/js/main.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/animejs@3.0.1/lib/anime.min.js"></script>
+<script src="/js/src/firework.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+    <!-- 雪花特效 -->
+
+    <!-- tidio -->
+    
+    <script src="//code.tidio.co/ui3pfxbwv0bfvkvxwibyaejafrndrrqm.js"></script>
+<script type="text/javascript">
+        window.onload = function() {
+            //配置
+            var config = {
+                vx: 3,  //小球x轴速度,正为右，负为左
+                vy: 3,  //小球y轴速度
+                height: 2,  //小球高宽，其实为正方形，所以不宜太大
+                width: 2,
+                count: 99,     //点个数
+                color: "50,163,84",     //点颜色
+                stroke: "50,163,84",      //线条颜色
+                dist: 6000,     //点吸附距离
+                e_dist: 2000,  //鼠标吸附加速距离
+                max_conn: 10    //点到点最大连接数
+            }
+
+            //调用
+            CanvasParticle(config);
+        }
+    </script>
+    <div style="position: fixed;top:83%;left:20px;font-size: 20px;">
+        <p><a href="https://www.ccyh.xyz/about/" title="关于"> 😏</a></p>
+        <p><a href="https://www.ccyh.xyz/gallery/" title="相册"> 📷</a></p>
+        <p><a href="https://www.ccyh.xyz/messagebd/" title="留言"> ✍️</a></p>
+    </div>
+    <!-- start webpushr code --> <script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BJr9sIqj2_kebTgw2nJBff6ursDXbird-fIhorgVp1QNRDFjjQMboRaIAw4aqkR78QGW92DxTl21P0y8tVO0ej0');</script><!-- end webpushr code -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

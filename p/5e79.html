@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+
+
+<script src="/js/fireworks.js"></script>
+<script src="/js/canvas-particle.js"></script>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<title>谓词逻辑 - Liam&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.7.0/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.7.0/dist/APlayer.min.js"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7097707906527513",
+    enable_page_level_ads: true
+  });
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> <script> (adsbygoogle = window.adsbygoogle || []).push({ google_ad_client: "ca-pub-7097707906527513", enable_page_level_ads: true }); </script>
+<script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+</script>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+    <meta name="description" content="谓词 $def:$   个体词：可独立存在的客体 谓词：用来说明个体的性质或个体间的关系">
+<meta name="keywords" content="Math">
+<meta property="og:type" content="article">
+<meta property="og:title" content="谓词逻辑">
+<meta property="og:url" content="https://www.ccyh.xyz/p/5e79.html">
+<meta property="og:site_name" content="Liam&#39;s Blog">
+<meta property="og:description" content="谓词 $def:$   个体词：可独立存在的客体 谓词：用来说明个体的性质或个体间的关系">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-03-30T07:40:23.571Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="谓词逻辑">
+<meta name="twitter:description" content="谓词 $def:$   个体词：可独立存在的客体 谓词：用来说明个体的性质或个体间的关系">
+
+
+
+<link rel="alternative" href="/atom.xml" title="谓词逻辑" type="application/atom+xml">
+
+
+
+<link rel="icon" href="/images/gen.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/solarized-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-133326618-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-133326618-2');
+</script>
+
+
+    
+    
+    
+    
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:1304349,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+
+
+<link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body class="is-2-column">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/codehub.ico" alt="谓词逻辑" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">🏡主页</a>
+                
+                <a class="navbar-item" href="/archives">📚归档</a>
+                
+                <a class="navbar-item" href="/categories">🎏分类</a>
+                
+                <a class="navbar-item" href="/tags">🔖标签</a>
+                
+                <a class="navbar-item" href="/messagebd">📭留言</a>
+                
+                <a class="navbar-item" href="/links">🔗友情链接</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="My GitHub" href="https://github.com/YHCClin?tab=repositories">
+                        
+                        <i class="fab fa-git-square"></i>
+                        
+                    </a>
+                    
+                    <a class="navbar-item" target="_blank" title="RSS" href="https://www.ccyh.xyz/atom.xml">
+                        
+                        <i class="fab fa-forumbee"></i>
+                        
+                    </a>
+                    
+                    <a class="navbar-item" target="_blank" title="LeetCode" href="https://leetcode-cn.com/u/ccyh/">
+                        
+                        <i class="fab fa-gitlab"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+        
+                <script type="text/javascript" src="js/theme-setting.js"></script>
+                <a class="navbar-item" id="night-nav" title="Night Mode" href="javascript:switchNight();" data-pjax-state="">
+                    <i class="fas fa-moon" id="night-icon"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    
+    <section class="section">
+        <div class="container">
+            <div id="mydiv" class="columns">
+                <div class="column is-8-tablet is-9-desktop is-9-widescreen has-order-2 column-main">
+                     
+<div class="card">
+    
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                
+                <time class="level-item has-text-grey" datetime="2020-03-06T05:55:13.000Z">2020-03-06</time>
+                <i class="fa fa-folder-open" style="margin-left:4px;"> </i>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/Math/">Math</a>
+                </div>
+                
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    
+                    8 分钟 读完 (大约 1201 个字)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                谓词逻辑
+            
+        </h1>
+        <div class="content">
+            <h2 id="谓词"><a href="#谓词" class="headerlink" title="谓词"></a>谓词</h2><blockquote>
+<p>$def:$ </p>
+<ul>
+<li>个体词：可独立存在的客体</li>
+<li>谓词：用来说明个体的性质或个体间的关系</li>
+</ul>
+</blockquote>
+<a id="more"></a>
+<p><strong>如：</strong> 小明是个小学生<br>其中，<code>小明</code> 就是个体词，<code>是个小学生</code> 就是谓词, 说明了客体的性质。<br><strong>再如：</strong> $6$ 大于 $5$<br>其中 6 与 5 为个体词，<code>大于</code> 为谓词，说明了客体间的关系。</p>
+<hr>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p><strong>例1：</strong> 写命题的谓词表达式：</p>
+<p><1> 小明是个小学生<br>设 $A(x)$:$x$ 为小学生，$a$:小明<br>则命题符号化为：$A(a)$</1></p>
+<p><2> $6$ 大于 $5$<br>设 $H(x,y)$:$x$ 大于 $y$, $a:6,b:5$<br>则命题符号化为：$H(a,b)$</2></p>
+<p>其中：</p>
+<ul>
+<li>$A(x)$ 为一元谓词； $H(x,y)$ 为二元谓词</li>
+<li>$A(a)$ 为一元谓词常项； $H(a,b)$ 为二元谓词常项</li>
+</ul>
+<hr>
+<h2 id="引入量词"><a href="#引入量词" class="headerlink" title="引入量词"></a>引入量词</h2><blockquote>
+<p>$def:$ 个体域：个体变动的取值范围(类似于函数的定义域)</p>
+</blockquote>
+<blockquote>
+<p>$def:$ 量词： 表示个体之间数量关系的词</p>
+<ul>
+<li>全称量词：符号 “ $\forall$ “ : 任意的 $x$</li>
+<li>存在量词：符号 “ $\exists$ “ : 存在这样的 $x$</li>
+</ul>
+</blockquote>
+<p><strong>例2：</strong> 用谓词逻辑将下列命题符号化：</p>
+<p><1> 所有的偶数均能够被 2 整除。<br>设 $A(x)$: $x$ 为偶数， $B(x)$: $x$ 能被 2 整除<br>则命题符号化为：$\forall x(A(x)\rightarrow B(x))$</1></p>
+<p><2> 有一些人登上过月球。<br>设 $A(x)$: $x$ 为人， $B(x)$: $x$ 登上过月球<br>则命题符号化为：$\exists x (A(x)\wedge B(x))$</2></p>
+<p><3> 每列火车都比某些汽车快。<br>设 $F(x)$: $x$ 是火车， $G(x)$: $x$ 是汽车，$H(x,y)$: $x$ 比 $y$ 快<br>则命题符号化为：$\forall x(F(x)\rightarrow \exists y(G(y)\wedge H(x,y))$</3></p>
+<p><4> 没有不犯错的人<br>设 $A(x)$ : $x$ 为人， $B(x)$: $x$ 犯过错<br>则命题符号化为：$\neg \exists x(A(x)\wedge \neg B(x))$</4></p>
+<blockquote>
+<p>⚠️总结：不难发现</p>
+<ul>
+<li>全称量词 “ $\forall$ “ 后加 $\rightarrow$</li>
+<li>存在量词 “ $\exists$ “ 后加 $\wedge$</li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<p>$def:$ </p>
+<ul>
+<li>量词的指导变元：$\forall /\exists + (x,y,z,…)$</li>
+<li>量词的辖域： 量词的作用范围 $\forall /\exists x + (D)$, $D$ 即为辖域</li>
+<li>变元由可分为：约束变元、自由变元</li>
+</ul>
+</blockquote>
+<p>对于下述公式：<br>$$<br>\forall \color{red}{x}\exists \color{blue}{y}   (P(\color{red}{x},\color{blue}{y})\wedge Q(\color{blue}{y},z)) \wedge \exists \color{green}{x}R(\color{green}{x},\color{yellow}{y})<br>$$<br>其中：</p>
+<ul>
+<li>$\color{red}{x},\color{blue}{y}$ 的辖域为：$(P(\color{red}{x},\color{blue}{y}) \wedge Q(\color{blue}{y},z))$</li>
+<li>$\color{green}{x}$ 的辖域为：$R(\color{green}{x},\color{yellow}{y})$</li>
+<li>$\color{red}{x},\color{blue}{y},\color{green}{x}$ 为约束变元</li>
+<li>$\color{yellow}{y},z$ 为自由变元</li>
+</ul>
+<blockquote>
+<p>$def:$ 设 $A$ 和 $B$ 是任意两个谓词公式，如果 $A\rightarrow B$ 是重言式，称 $A$ 与 $B$ 等价，记为：$A\Leftrightarrow B$</p>
+</blockquote>
+<p>⭐️需要熟记的等价式：</p>
+<ol>
+<li><p>命题逻辑中的等价式的代换实例是谓词逻辑中的等值式<br>如：$A\rightarrow B \Leftrightarrow \neg A\vee B$ 相当于 $P(x)\rightarrow Q(x)\Leftrightarrow \neg P(x)\vee Q(x)$; 且 $\neg (A\wedge B)\Leftrightarrow \neg A\vee \neg B$ 相当于 $\neg(\exists xP(x)\wedge \forall xQ(x))\Leftrightarrow \neg \exists xP(x)\vee \neg \forall xQ(x)$</p>
+</li>
+<li><p>量词否定转换<br>$\neg \forall xP(x) \Leftrightarrow \exists x\neg P(x)$<br>$\neg \exists xP(x) \Leftrightarrow \forall x\neg P(x)$</p>
+</li>
+<li><p>量词辖域的扩张和收缩、<br>$\forall x(A(x)\wedge \exists y B(y))\Leftrightarrow \forall xA(x) \wedge \exists y B(y)$ 收缩</p>
+</li>
+<li><p>量词分配律<br>$\color{red}{\forall} x(A(x)\color{red}{\wedge} B) \Leftrightarrow \forall xA(x) \wedge \forall x B(x)$<br>$\color{green}{\exists} x(A(x)\color{green}{\vee} B) \Leftrightarrow \exists xA(x) \vee \exists x B(x)$<br>⚠️这里要注意的是只有当全称量词与合取符号，存在量词与析取符号两种情况时分配律才有效。</p>
+</li>
+</ol>
+<p><strong>例3：</strong> 设个体域 $D = { a,b,c }$, 消去谓词公式中的量词</p>
+<p><1> $\exists xF(x) \rightarrow \forall yG(y)$<br>消去后：$F(a)\vee F(b)\vee F(c) \rightarrow G(a)\wedge G(b) \wedge G(c)$</1></p>
+<p><2> $\forall x\forall y(F(x)\rightarrow G(y))$<br>$\Leftrightarrow \forall x(F(x)\rightarrow \forall yG(y))$<br>$\Leftrightarrow \forall x(\neg F(x) \vee \forall y G(y))$<br>$\Leftrightarrow \forall x\neg F(x) \vee \forall yG(y)$; (x 辖域收缩)<br>$\Leftrightarrow \neg \exists xF(x)\vee \forall yG(y)$;(量词否定转换)<br>$\Leftrightarrow \exists xF(x)\rightarrow \forall yG(y)$;(等价式)<br>$\Leftrightarrow (F(a)\vee F(b)\vee F(c))\rightarrow (G(a)\wedge G(b)\wedge G(c))$</2></p>
+<h3 id="前束范式"><a href="#前束范式" class="headerlink" title="前束范式"></a>前束范式</h3><blockquote>
+<p>$def:$ 一个谓词公式 $A$ , 若具有形式 $Q_1x_1Q_2x_2Q_3x_3 \cdots Q_nx_nM$ 其中每个$Q_i$ 为量词 $(\forall / \exists)$, $M$ 为不含量词的公式，则称 $A$ 为<strong>前束范式</strong>。</p>
+</blockquote>
+<p><strong>例4：</strong> 求谓词公式的前束范式</p>
+<p><1> $\neg \forall x(F(x)\rightarrow G(x))$<br>$\Leftrightarrow \exists x\neg(F(x)\rightarrow G(x))$<br>或 $\Leftrightarrow \exists x\neg (\neg F(x)\vee G(x))$<br>或 $\Leftrightarrow \exists x(F(x)\wedge G(x))$</1></p>
+<p><2> $\forall xF(x)\wedge \forall y G(y)$<br>$\Leftrightarrow \forall x \forall y(F(x)\wedge G(y))$<br>$\Leftrightarrow \forall xF(x)\wedge \forall x G(x)$ 换名规则<br>$\forall x(F(x)\wedge G(x))$</2></p>
+<hr>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Math/">Math</a>
+                </div>
+            </div>
+        </div>
+        
+        
+
+        
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5d123718ccac450012baa1b1&amp;product=social-ab" async="async"></script>
+
+        
+  <div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>本文作者：</strong>Liam
+      </li>
+      <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="" title="{{ page.title }}">谓词逻辑</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>发布时间：</strong>
+      <a href="" title="{{ page.title }}">2020年3月6日 - 13时03分</a>
+      </li>
+      <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+      </li>
+    </ul>
+  <div>
+    
+
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？点个赞留个言再走吧！</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>Alipay</span>
+    <div class="qrcode"><img src="/images/zi.jpg" alt="Alipay"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>WeChatPay</span>
+    <div class="qrcode"><img src="/images/we.jpg" alt="WeChatPay"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/p/ccf3.html">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">谓词演算的推理理论</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/p/9694.html">
+                <span class="level-item">命题逻辑的推理规则</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+    <div class="card card-transparent">
+        <div class="card-content">
+            <h2 align="center" style="padding:10px;">温馨提示，此处可能会出现广告</h2>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- article -->
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7097707906527513" data-ad-slot="2635009920" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#valine-thread',
+        notify: false,
+        verify: true,
+        app_id: 'oR2IQXqpGEFy4GHNDgdmfSMR-gzGzoHsz',
+        app_key: 'hwYfVGzICBlXGiokUXaNqJsx',
+        placeholder: '留下邮箱可以收到回复通知哦~'
+    });
+</script>
+
+    </div>
+</div>
+
+
+</div></div>
+
+                </div>
+                 
+                
+
+
+
+
+<div class="column is-4-tablet is-3-desktop is-3-widescreen  has-order-1 column-left is-sticky">
+    
+        
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#谓词">
+        <span class="has-mr-6">1</span>
+        <span>谓词</span>
+        </a></li><li>
+        <a class="is-flex" href="#应用">
+        <span class="has-mr-6">2</span>
+        <span>应用</span>
+        </a></li><li>
+        <a class="is-flex" href="#引入量词">
+        <span class="has-mr-6">3</span>
+        <span>引入量词</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#前束范式">
+        <span class="has-mr-6">3.1</span>
+        <span>前束范式</span>
+        </a></li></ul></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <img class="image is-128x128 has-mb-6" src="https://hexoblog-1257022783.cos.ap-chengdu.myqcloud.com/photo.jpg" alt="Liam">
+                    
+                    <p class="is-size-4 is-block">
+                        Liam
+                    </p>
+                    
+                    
+                    <div id="binft" align="center" style="margin:5px;"></div>
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Fujian·China</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        47
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        11
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        21
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://blog.csdn.net/Marvine">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/YHCClin">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="https://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="https://twitter.com/echo_scottlin">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+    <div align="center" style="margin-left:auto;margin-right:auto;padding:10px">
+        <hr align="center" style="width:70%;">
+        <p align="center" id="hitokoto"></p>
+        <script type="text/javascript" defer>
+            function getYiyan(){
+            $.getJSON("https://v1.hitokoto.cn/", function (data) {
+            if(data){
+                $('#hitokoto').html("");
+                $('#hitokoto').append("<strong style='color: #77C08F;'>"+data.hitokoto+"</strong>"+
+                "<p>"+"来源《"+data.from+"》</p><p>提供者-"+data.creator+"</p>");
+            }});}
+            $(function (){getYiyan();$('#hitokoto').click(function(){getYiyan();})});
+        </script>
+    </div>
+    <div align="center" style="margin-bottom: 10px;">
+        
+        <script>
+                    var binft = function (r) {
+                      function t() {
+                        return b[Math.floor(Math.random() * b.length)]
+                      }  
+                      function e() {
+                        return String.fromCharCode(94 * Math.random() + 33)
+                      }
+                      function n(r) {
+                        for (var n = document.createDocumentFragment(), i = 0; r > i; i++) {
+                          var l = document.createElement("span");
+                          l.textContent = e(), l.style.color = t(), n.appendChild(l)
+                        }
+                        return n
+                      }
+                      function i() {
+                        var t = o[c.skillI];
+                        c.step ? c.step-- : (c.step = g, c.prefixP < l.length ? (c.prefixP >= 0 && (c.text += l[c.prefixP]), c.prefixP++) : "forward" === c.direction ? c.skillP < t.length ? (c.text += t[c.skillP], c.skillP++) : c.delay ? c.delay-- : (c.direction = "backward", c.delay = a) : c.skillP > 0 ? (c.text = c.text.slice(0, -1), c.skillP--) : (c.skillI = (c.skillI + 1) % o.length, c.direction = "forward")), r.textContent = c.text, r.appendChild(n(c.prefixP < l.length ? Math.min(s, s + c.prefixP) : Math.min(s, t.length - c.skillP))), setTimeout(i, d)
+                      }
+                      var l = "",
+                      o = ["Hello!", "你好呀，陌生人！", "今天你开心了吗？", "人非圣贤，孰能无过。", "不要轻易抱怨", "抱怨只能说明自己能力不足。", "自律是最好的老师。", "每天学一点，菜鸟变大神。","怠惰是贫穷的制造厂。","忍耐力较诸脑力，尤胜一筹。","环境不会改变，解决之道在于改变自己。"].map(function (r) {
+                      return r + ""
+                      }),
+                      a = 2,
+                      g = 1,
+                      s = 5,
+                      d = 75,
+                      b = ["rgb(110,64,170)", "rgb(150,61,179)", "rgb(191,60,175)", "rgb(228,65,157)", "rgb(254,75,131)", "rgb(255,94,99)", "rgb(255,120,71)", "rgb(251,150,51)", "rgb(226,183,47)", "rgb(198,214,60)", "rgb(175,240,91)", "rgb(127,246,88)", "rgb(82,246,103)", "rgb(48,239,130)", "rgb(29,223,163)", "rgb(26,199,194)", "rgb(35,171,216)", "rgb(54,140,225)", "rgb(76,110,219)", "rgb(96,84,200)"],
+                      c = {
+                        text: "",
+                        prefixP: -s,
+                        skillI: 0,
+                        skillP: 0,
+                        direction: "forward",
+                        delay: a,
+                        step: g
+                      };
+                      i()
+                      };
+                      binft(document.getElementById('binft'));
+        </script>
+    </div>
+
+</div>
+    
+    
+        <div class="column-right-shadow  is-sticky">
+        
+            <style type="text/css">
+    .fl{ float: left; }
+    .fr{ float: right; }
+    .wrapper{ width: 250px; height: 200px; margin-top: 80px;margin-bottom: auto;margin-left: auto;margin-right: auto;}
+    .wrapper p{ padding-top: 10px; line-height: 27px; color: #999; font-size: 10px; text-align: center;  }
+    .tagcloud { position: relative; margin-top:0; font-family: Lato, sans-serif;}
+    .tagcloud a{ 
+        position: absolute;
+        font-family: Lato, sans-serif;
+        top: 0; left: 0;  
+        display: block; 
+        padding: 11px 30px; 
+        color: #32A354; 
+        font-size: 18px;
+        font-weight: bold;   
+        background-color: transparent; 
+        text-decoration: none; 
+        white-space: nowrap;
+
+        -ms-filter:"progid:DXImageTransform.Microsoft.Shadow(Strength=4,Direction=135, Color='#000000')";/*兼容ie7/8*/
+        filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=125, Strength=9);
+      /*strength是阴影大小，direction是阴影方位，单位为度，可以为负数，color是阴影颜色 （尽量使用数字）使用IE滤镜实现盒子阴影的盒子必须是行元素或以行元素显示（block或inline-block;）*/
+    }
+    .tagcloud a:hover{ color: white; font-weight: 900; padding: 4px;background-color: rgba(50,163,84,0.6);box-shadow: 0 0 5px rgba(50,163,84,0);border-radius: 8px;}
+</style>
+<script type="text/javascript" src="/js/tagcloud.js"></script>
+
+    <div class="card widget">
+        <div class="card-content">
+            <h3 class="menu-label">
+                标签云
+            </h3>
+            <div class="wrapper">
+                <div class="tagcloud fl">
+                    <a href="/tags/AI/" style="font-size: 16px;">AI</a> <a href="/tags/Algorithm/" style="font-size: 18px;">Algorithm</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/Blog/" style="font-size: 10px;">Blog</a> <a href="/tags/Borring/" style="font-size: 10px;">Borring</a> <a href="/tags/C/" style="font-size: 10px;">C</a> <a href="/tags/C/" style="font-size: 10px;">C++</a> <a href="/tags/Graph/" style="font-size: 10px;">Graph</a> <a href="/tags/Hexo/" style="font-size: 14px;">Hexo</a> <a href="/tags/Knapsack/" style="font-size: 10px;">Knapsack</a> <a href="/tags/LeetCode/" style="font-size: 14px;">LeetCode</a> <a href="/tags/List/" style="font-size: 12px;">List</a> <a href="/tags/ML/" style="font-size: 20px;">ML</a> <a href="/tags/Math/" style="font-size: 14px;">Math</a> <a href="/tags/QuickSort/" style="font-size: 10px;">QuickSort</a> <a href="/tags/String/" style="font-size: 10px;">String</a> <a href="/tags/Tools/" style="font-size: 10px;">Tools</a> <a href="/tags/Tree/" style="font-size: 16px;">Tree</a> <a href="/tags/algorithm/" style="font-size: 10px;">algorithm</a> <a href="/tags/discretemathematics/" style="font-size: 10px;">discretemathematics</a> <a href="/tags/并查集/" style="font-size: 10px;">并查集</a>
+                </div>
+            </div><!--wrapper-->
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+        /*3D标签云*/
+        tagcloud({
+            selector: ".tagcloud",  //元素选择器
+            fontsize: 10,       //基本字体大小, 单位px
+            radius: 50,         //滚动半径, 单位px
+            mspeed: "normal",   //滚动最大速度, 取值: slow, normal(默认), fast
+            ispeed: "normal",   //滚动初速度, 取值: slow, normal(默认), fast
+            direction: 135,     //初始滚动方向, 取值角度(顺时针360): 0对应top, 90对应left, 135对应right-bottom(默认)...
+            keep: false          //鼠标移出组件后是否继续随鼠标滚动, 取值: false, true(默认) 对应 减速至初速度滚动, 随鼠标滚动
+        });
+    </script>
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/C/">
+            <span class="level-start">
+                <span class="level-item">C++</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Math/">
+            <span class="level-start">
+                <span class="level-item">Math</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Mathematics/">
+            <span class="level-start">
+                <span class="level-item">Mathematics</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/人工智能/">
+            <span class="level-start">
+                <span class="level-item">人工智能</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/工具/">
+            <span class="level-start">
+                <span class="level-item">工具</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/底层原理/">
+            <span class="level-start">
+                <span class="level-item">底层原理</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/教程/">
+            <span class="level-start">
+                <span class="level-item">教程</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/数据结构/">
+            <span class="level-start">
+                <span class="level-item">数据结构</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">9</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/机器学习/">
+            <span class="level-start">
+                <span class="level-item">机器学习</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">7</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/算法/">
+            <span class="level-start">
+                <span class="level-item">算法</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">12</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/闲疯帝/">
+            <span class="level-start">
+                <span class="level-item">闲疯帝</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/p/cd37.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="20200409205522">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-09T12:55:22.000Z">2020-04-09</time></div>
+                    <a href="/p/cd37.html" class="has-link-black-ter is-size-6">20200409205522</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+
+        
+        <article class="media">
+            
+            <a href="/p/b411.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="不确定性推理">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-30T08:11:26.000Z">2020-03-30</time></div>
+                    <a href="/p/b411.html" class="has-link-black-ter is-size-6">不确定性推理</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/人工智能/">人工智能</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+
+        
+        <article class="media">
+            
+            <a href="/p/a36d.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="利用归结原理求解问题">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-08T03:18:11.000Z">2020-03-08</time></div>
+                    <a href="/p/a36d.html" class="has-link-black-ter is-size-6">利用归结原理求解问题</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/人工智能/">人工智能</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+
+        
+        <article class="media">
+            
+            <a href="/p/fba.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="归结反演">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-07T12:11:26.000Z">2020-03-07</time></div>
+                    <a href="/p/fba.html" class="has-link-black-ter is-size-6">归结反演</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/人工智能/">人工智能</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+
+        
+        <article class="media">
+            
+            <a href="/p/3027.html" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="谓词逻辑归结原理">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-07T03:37:40.000Z">2020-03-07</time></div>
+                    <a href="/p/3027.html" class="has-link-black-ter is-size-6">谓词逻辑归结原理</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/人工智能/">人工智能</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">8</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/06/">
+                <span class="level-start">
+                    <span class="level-item">六月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">7</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/05/">
+                <span class="level-start">
+                    <span class="level-item">五月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/04/">
+                <span class="level-start">
+                    <span class="level-item">四月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">11</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/AI/">
+                        <span class="tag">AI</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Algorithm/">
+                        <span class="tag">Algorithm</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Array/">
+                        <span class="tag">Array</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Blog/">
+                        <span class="tag">Blog</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Borring/">
+                        <span class="tag">Borring</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/C/">
+                        <span class="tag">C</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/C/">
+                        <span class="tag">C++</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Graph/">
+                        <span class="tag">Graph</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Hexo/">
+                        <span class="tag">Hexo</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Knapsack/">
+                        <span class="tag">Knapsack</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/LeetCode/">
+                        <span class="tag">LeetCode</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/List/">
+                        <span class="tag">List</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/ML/">
+                        <span class="tag">ML</span>
+                        <span class="tag is-grey">7</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Math/">
+                        <span class="tag">Math</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/QuickSort/">
+                        <span class="tag">QuickSort</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/String/">
+                        <span class="tag">String</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Tools/">
+                        <span class="tag">Tools</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Tree/">
+                        <span class="tag">Tree</span>
+                        <span class="tag is-grey">4</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/algorithm/">
+                        <span class="tag">algorithm</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/discretemathematics/">
+                        <span class="tag">discretemathematics</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/并查集/">
+                        <span class="tag">并查集</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+            
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                站点公告
+            </h3>
+            <ul class="menu-list">
+            
+            </ul>
+            <li>暂无公告</li>
+        </div>
+    </div>
+</div>
+
+
+        
+        </div>
+    
+</div>
+
+
+
+                 
+                 
+            </div>
+        </div>
+    </section>
+    
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/codehub.ico" alt="谓词逻辑" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                ©️ 2019 👉 2020 Liam&nbsp;
+                💖 Powered 
+                </p>
+                <p class="post-count">📜 站点字数统计 <font color="#6DE8DD"> 64.2k </font> 字</p>
+                <p id="busuanzi_container_site_pv" class="theme-info">📑 总访问-<span id="busuanzi_value_site_pv" style="color:#6DE8DD;"></span>-次 |</p>
+                <p id="busuanzi_container_site_uv" class="theme-info">👤 总访客-<span id="busuanzi_value_site_uv" style="color:#6DE8DD;"></span>-位</p>
+                <p>🌏 <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span></p>
+            </div>
+            
+            <script>
+                (function(){
+                    var bp = document.createElement('script');
+                    var curProtocol = window.location.protocol.split(':')[0];
+                    if (curProtocol === 'https') {
+                        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+                    }
+                    else {
+                        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                    }
+                    var s = document.getElementsByTagName("script")[0];
+                    s.parentNode.insertBefore(bp, s);
+                })();
+            </script>
+
+            
+            <div class="level-end">
+                <script type="text/javascript" src="//rf.revolvermaps.com/0/0/0.js?i=0xetp0d4rdh&amp;d=2&amp;p=1&amp;b=3&amp;w=293&amp;g=2&amp;f=comic_sans_ms&amp;fs=12&amp;r=0&amp;c0=54ff00&amp;c1=00fff6&amp;c2=9d8b63&amp;ic0=0&amp;ic1=0" async="async"></script>
+            </div>
+            <script>
+                var now = new Date(); 
+                function createtime() { 
+                    var grt= new Date("8/1/2019 12:49:00");//此处修改你的建站时间或者网站上线时间 
+                    now.setTime(now.getTime()+250); 
+                    days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+                    hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+                    if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+                    mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+                    seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+                    snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+                    document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+                    document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+                } 
+                setInterval("createtime()",250);
+            </script>
+
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        </div>
+
+    </div>
+
+    <script>
+        (function(){
+            var bp = document.createElement('script');
+            bp.src = '//push.zhanzhang.baidu.com/push.js';
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/meting@1.1.0/dist/Meting.min.js"></script>
+<script src="/js/theme-setting.js" defer></script>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {matchFontHeight: true},
+        SVG: {matchFontHeight: true},
+        CommonHTML: {matchFontHeight: true}
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+
+
+<script src="/js/main.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/animejs@3.0.1/lib/anime.min.js"></script>
+<script src="/js/src/firework.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+    <!-- 雪花特效 -->
+
+    <!-- tidio -->
+    
+    <script src="//code.tidio.co/ui3pfxbwv0bfvkvxwibyaejafrndrrqm.js"></script>
+<script type="text/javascript">
+        window.onload = function() {
+            //配置
+            var config = {
+                vx: 3,  //小球x轴速度,正为右，负为左
+                vy: 3,  //小球y轴速度
+                height: 2,  //小球高宽，其实为正方形，所以不宜太大
+                width: 2,
+                count: 99,     //点个数
+                color: "50,163,84",     //点颜色
+                stroke: "50,163,84",      //线条颜色
+                dist: 6000,     //点吸附距离
+                e_dist: 2000,  //鼠标吸附加速距离
+                max_conn: 10    //点到点最大连接数
+            }
+
+            //调用
+            CanvasParticle(config);
+        }
+    </script>
+    <div style="position: fixed;top:83%;left:20px;font-size: 20px;">
+        <p><a href="https://www.ccyh.xyz/about/" title="关于"> 😏</a></p>
+        <p><a href="https://www.ccyh.xyz/gallery/" title="相册"> 📷</a></p>
+        <p><a href="https://www.ccyh.xyz/messagebd/" title="留言"> ✍️</a></p>
+    </div>
+    <!-- start webpushr code --> <script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BJr9sIqj2_kebTgw2nJBff6ursDXbird-fIhorgVp1QNRDFjjQMboRaIAw4aqkR78QGW92DxTl21P0y8tVO0ej0');</script><!-- end webpushr code -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
